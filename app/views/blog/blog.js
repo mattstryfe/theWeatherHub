@@ -10,6 +10,6 @@ angular.module('myApp.blog', ['ngRoute'])
   }])
 
   .controller('BlogCtrl', [function() {
-    this.title = "Blog / News / Stories"
+    this.title = "Blog / News / Stories";
 
   }]);

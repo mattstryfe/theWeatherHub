@@ -1,8 +1,30 @@
-<h1>
-  The Weather Hub
-</h1>
-<p>Weather made simple.</p>
+<div class="jumbotron">
+  <div class="container">
+    <h1>The Weather Hub</h1>
+    <p>An attempt to improve everything about weather.</p>
+  </div>
+</div>
 
-<div ng-controller="BaseCtrl as base">
-  base: {{base.test}}
+<div class="row">
+  <div class="col-lg-4" ng-controller="SwfCtrl as swf">
+    <img class="round-circle">
+    <h2>{{swf.title}}</h2>
+    <p>A simple weather forecast.</p>
+    <a class="btn btn-secondary" href="#!/swf">View More</a>
+  </div>
+
+  <div class="col-lg-4" ng-controller="ProjectsCtrl as projects">
+    <img class="round-circle cust-circle" src="public/images/agno.png">
+    <h2>{{projects.title}}</h2>
+    <p>Small group of side projects.</p>
+    <a class="btn btn-secondary" href="#!/projects">View More</a>
+  </div>
+
+  <div class="col-lg-4" ng-controller="BlogCtrl as blog">
+    <img class="round-circle">
+    <h2>{{blog.title}}</h2>
+    <p>Stay up to date with current events and news.</p>
+    <a class="btn btn-secondary" href="#!/blog">View More</a>
+  </div>
+
 </div>
