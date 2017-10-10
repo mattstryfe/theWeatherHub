@@ -1,3 +1,12 @@
 /*home page */
 .col-lg-4 {display:flex; flex-direction:column; align-items:center;}
 .cust-circle {width:140px; height:140px; border: 1px solid transparent; border-radius:10px}
+.homepage {font-size: 150px;}
+  /*colors*/
+    .orange     { color: #FB8C00; }
+    .green      { color: #007849; }
+    .blue       { color: #0375B4; }
+
+    .orange-bg   { background-color: #FB8C00; }
+    .green-bg    { background-color: #007849; }
+    .blue-bg     { background-color: #0375B4; }

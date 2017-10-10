@@ -5,26 +5,42 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-lg-4" ng-controller="SwfCtrl as swf">
-    <img class="round-circle">
-    <h2>{{swf.title}}</h2>
-    <p>A simple weather forecast.</p>
-    <a class="btn btn-secondary" href="#!/swf">View More</a>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4" ng-controller="SwfCtrl as swf">
+      <i class="material-icons homepage blue">cloud_done</i>
+      <h2>{{ swf.title }}</h2>
+      <p>{{ swf.details }}</p>
+      <a class="btn btn-secondary blue-bg" href="#!/swf">View More</a>
+    </div>
+
+    <div class="col-lg-4" ng-controller="ProjectsCtrl as projects">
+      <i class="material-icons homepage orange">build</i>
+      <h2>{{ projects.title }}</h2>
+      <p>{{ projects.details }}</p>
+      <a class="btn btn-secondary orange-bg" href="#!/projects">View More</a>
+    </div>
+
+    <div class="col-lg-4" href="#!/blog" ng-controller="BlogCtrl as blog">
+      <i class="material-icons homepage green">chat</i>
+      <h2>{{ blog.title }}</h2>
+      <p>{{ blog.details }}</p>
+      <a class="btn btn-secondary green-bg" href="#!/blog">View More</a>
+    </div>
+
   </div>
 
-  <div class="col-lg-4" ng-controller="ProjectsCtrl as projects">
-    <img class="round-circle cust-circle" src="public/images/agno.png">
-    <h2>{{projects.title}}</h2>
-    <p>Small group of side projects.</p>
-    <a class="btn btn-secondary" href="#!/projects">View More</a>
+  <hr class="featurette-divider">
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading">The Story of Agno</h2>
+      <p class="lead">Agno; the worst praying mantis I know.</p>
+    </div>
+    <div class="col-md-5">
+      <img class="featurette-image img-fluid mx-auto" src="public/images/agno.png">
+    </div>
   </div>
 
-  <div class="col-lg-4" ng-controller="BlogCtrl as blog">
-    <img class="round-circle">
-    <h2>{{blog.title}}</h2>
-    <p>Stay up to date with current events and news.</p>
-    <a class="btn btn-secondary" href="#!/blog">View More</a>
-  </div>
 
 </div>
+

@@ -10,6 +10,6 @@ angular.module('myApp.blog', ['ngRoute'])
   }])
 
   .controller('BlogCtrl', [function() {
-    this.title = "Blog / News / Stories";
-
+    this.title = "Blog";
+    this.details = 'Capturing the new build, day-by-day.  Also some ideas and current events.'
   }]);

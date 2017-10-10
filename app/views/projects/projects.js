@@ -10,6 +10,6 @@ angular.module('myApp.projects', ['ngRoute'])
   }])
 
   .controller('ProjectsCtrl', [function() {
-    this.title = 'Side Projects';
-
+    this.title = 'Projects';
+    this.details = 'Small group of side projects including, peltiers, DHT Sensors, and ESP8266 modules.'
   }]);

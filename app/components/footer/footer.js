@@ -11,6 +11,6 @@ angular.module('myApp.footer', ['ngRoute'])
 
     .directive('footer', [function() {
       return {
-        templateUrl: 'components/footer/footer.html'
+        templateUrl: 'components/footer/footer.html',
       }
     }]);
