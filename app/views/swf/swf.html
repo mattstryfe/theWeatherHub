@@ -1,2 +1,27 @@
 <h1>{{ swf.title }} </h1>
 <span>{{ swf.details }}</span>
+
+
+<form>
+  <div>
+    <label>Enter Zipcode</label>
+    <input type="text" ng-model="zip"  />
+  </div>
+
+  <div class="alert"
+       ng-class="{ 'alert-warning': zip.length < characters, 'alert-danger': zip.length > characters }"
+  >
+    <div ng-show="zip.length < characters">You have less than 5 characters!</div>
+    <div ng-show="zip.length > characters">You have more than 5 characters!</div>
+    <div ng-show="zip.length === characters"></div>
+  </div>
+
+  <button type="submit" ng-click="swf.getData(zip, swf.config)">
+    Get Forecast!
+  </button>
+</form>
+
+
+<div>
+  <span>Test Data:</span>{{swf.testData}}
+</div>
