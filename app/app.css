@@ -26,3 +26,7 @@
 
 /*Footer*/
 .large-margin {margin-top:250px;}
+
+/* swf */
+.testData {display: flex; flex-direction: row; align-items: center; justify-content: space-between;}
+.testData {padding: 10px;}

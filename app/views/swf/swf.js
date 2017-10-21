@@ -18,7 +18,7 @@ angular.module('myApp.swf', ['ngRoute'])
       // this.testMethod = function () {
       //   this.testData = 'Test data works';
       // };
-      //this.weatherData = {};
+      this.weatherData = '';
       this.config = {
         user_zip: '',
         geoCoords: {
@@ -39,7 +39,7 @@ angular.module('myApp.swf', ['ngRoute'])
       }
 
 
-      this.getData = function (zip, config) {
+      this.getData = function (zip, config, weatherData) {
         return new Promise(function(resolve, reject) {
           console.log('zip: ', zip, 'config: ', config)
 
@@ -69,6 +69,10 @@ angular.module('myApp.swf', ['ngRoute'])
               if(!responseData){
                 return reject("Something went wrong")
               }
+              console.log('responseData: ', responseData.data.properties)
+              //console.log(this.weatherData)
+              weatherData = responseData.data.properties
+
               resolve (responseData.data.properties)
             })
         })

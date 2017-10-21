@@ -16,12 +16,19 @@
     <div ng-show="zip.length === characters"></div>
   </div>
 
-  <button type="submit" ng-click="swf.getData(zip, swf.config)">
+  <button type="submit" ng-click="swf.getData(zip, swf.config, swf.weatherData)">
     Get Forecast!
   </button>
 </form>
 
+<div class="testData">
+  <div>
+    <h4>Test Data:</h4>
+    <pre>{{ swf.weatherData | json : 2}}</pre>
+  </div>
+  <div>
+    <h4>Config:</h4>
+    <pre>{{ swf.config | json : 2 }}</pre>
+  </div>
 
-<div>
-  <span>Test Data:</span>{{ swf.getData }}
 </div>
