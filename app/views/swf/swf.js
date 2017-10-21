@@ -72,7 +72,7 @@ angular.module('myApp.swf', ['ngRoute'])
               console.log('responseData: ', responseData.data.properties)
               //console.log(this.weatherData)
               weatherData = responseData.data.properties
-              this.weatherData = responseData.data.properties
+              //this.weatherData = responseData.data.properties
               resolve (responseData.data.properties)
             })
         })
