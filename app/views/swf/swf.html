@@ -5,23 +5,21 @@
 <form>
   <div>
     <label>Enter Zipcode</label>
-    <input type="text" ng-model="zip"  />
+    <input type="text" ng-model="zip" />
   </div>
 
-  <div class="alert"
-       ng-class="{ 'alert-warning': zip.length < characters, 'alert-danger': zip.length > characters }"
-  >
+  <div class="alert" ng-class="{ 'alert-warning': zip.length < characters, 'alert-danger': zip.length > characters }">
     <div ng-show="zip.length < characters">You have less than 5 characters!</div>
     <div ng-show="zip.length > characters">You have more than 5 characters!</div>
     <div ng-show="zip.length === characters"></div>
   </div>
 
-  <button type="submit" ng-click="swf.getData(zip, swf.config)">
+  <button type="submit" ng-click="swf.getData(zip)">
     Get Forecast!
   </button>
 </form>
 
 
 <div>
-  <span>Test Data:</span>{{ swf.getData }}
+  <span>Test Data:</span>{{ swf.weatherData }}
 </div>

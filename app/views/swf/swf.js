@@ -1,24 +1,24 @@
-'use strict';
+'use strict'
 
 angular.module('myApp.swf', ['ngRoute'])
 
-  .config(['$routeProvider', function($routeProvider) {
+  .config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/swf', {
       templateUrl: 'views/swf/swf.html',
       controller: 'SwfCtrl as swf'
-    });
+    })
   }])
 
   .controller('SwfCtrl', [
     '$http',
-    function($http) {
+    function ($http) {
       this.title = 'SWF'
-      this.details = 'Simple Weather Forecast (SWF).  A simple daily forecast.  Data harvested from weather.gov\'s API.';
+      this.details = 'Simple Weather Forecast (SWF).  A simple daily forecast.  Data harvested from weather.gov\'s API.'
 
       // this.testMethod = function () {
       //   this.testData = 'Test data works';
       // };
-      //this.weatherData = {};
+      // this.weatherData = {};
       this.config = {
         user_zip: '',
         geoCoords: {
@@ -38,44 +38,43 @@ angular.module('myApp.swf', ['ngRoute'])
         }
       }
 
-
-      this.getData = function (zip, config) {
-        return new Promise(function(resolve, reject) {
+      this.getData = function (zip) {
+        return new Promise((resolve, reject) => {
+          var config = this.config
           console.log('zip: ', zip, 'config: ', config)
 
           // append zip to config object
-          config.user_zip = zip;
+          config.user_zip = zip
 
-          //build google url
+          // build google url
           config.google.full_url = config.google.base_url + config.user_zip + config.google.key
 
           $http({method: 'GET', url: config.google.full_url})
           // GET GEOCOORDS
-            .then(function(responseGeo) {
+            .then((responseGeo) => {
               // assign lat and lon to config
-              config.geoCoords.lat = responseGeo.data.results[0].geometry.location.lat;
-              config.geoCoords.lng = responseGeo.data.results[0].geometry.location.lng;
+              config.geoCoords.lat = responseGeo.data.results[0].geometry.location.lat
+              config.geoCoords.lng = responseGeo.data.results[0].geometry.location.lng
 
               // build and assign wGov Url
-              config.wGov.full_url = config.wGov.base_url + config.geoCoords.lat + ',' + config.geoCoords.lng;
+              config.wGov.full_url = config.wGov.base_url + config.geoCoords.lat + ',' + config.geoCoords.lng
               return $http({method: 'GET', url: config.wGov.full_url})
             })
-            .then(function(responseGov) {
+            .then((responseGov) => {
               config.wGov.grid_url = responseGov.data.properties.forecastGridData
               console.log('config: ', config)
               return $http({method: 'GET', url: config.wGov.grid_url })
             })
-            .then(function(responseData) {
-              if(!responseData){
-                return reject("Something went wrong")
+            .then((responseData) => {
+              if (!responseData) {
+                return reject('Something went wrong')
               }
-              resolve (responseData.data.properties)
+              this.weatherData = responseData.data.properties
+              resolve(responseData.data.properties)
             })
         })
       }
-
-
-    }]);
+    }])
 
 // 'use strict';
 //
