@@ -1,28 +1,35 @@
 <div class="jumbotron">
   <div class="container">
     <h1>The Weather Hub</h1>
-    <p>An attempt to improve everything about weather.</p>
+    <p>An attempt to improve everything; starting with weather.</p>
   </div>
 </div>
 
 <div class="container">
   <div class="row">
     <div class="col-lg-4" ng-controller="SwfCtrl as swf">
-      <i class="material-icons homepage blue">cloud_done</i>
+      <a href="#!/swf">
+        <i class="material-icons homepage blue">cloud_done</i>
+      </a>
       <h2>{{ swf.title }}</h2>
       <p>{{ swf.details }}</p>
       <a class="btn btn-secondary blue-bg" href="#!/swf">View More</a>
     </div>
 
     <div class="col-lg-4" ng-controller="ProjectsCtrl as projects">
-      <i class="material-icons homepage orange">build</i>
+      <a href="#!/projects">
+        <i class="material-icons homepage orange">build</i>
+      </a>
       <h2>{{ projects.title }}</h2>
       <p>{{ projects.details }}</p>
       <a class="btn btn-secondary orange-bg" href="#!/projects">View More</a>
     </div>
 
-    <div class="col-lg-4" href="#!/blog" ng-controller="BlogCtrl as blog">
-      <i class="material-icons homepage green">chat</i>
+
+    <div class="col-lg-4" ng-controller="BlogCtrl as blog">
+      <a href="#!/blog">
+        <i class="material-icons homepage green">chat</i>
+      </a>
       <h2>{{ blog.title }}</h2>
       <p>{{ blog.details }}</p>
       <a class="btn btn-secondary green-bg" href="#!/blog">View More</a>
