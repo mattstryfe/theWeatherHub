@@ -11,6 +11,7 @@ angular.module('myApp', [
   'myApp.swf',
   'myApp.projects',
   'myApp.blog'
+
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');

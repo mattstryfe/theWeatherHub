@@ -28,5 +28,6 @@
 .large-margin {margin-top:250px;}
 
 /* swf */
-.testData {display: flex; flex-direction: row; align-items: center; justify-content: space-between;}
+.testData {display: flex; flex-direction: row; align-items: center; justify-content: flex-start;}
 .testData {padding: 10px;}
+.datahldr {display: flex: align-content: flex-start}

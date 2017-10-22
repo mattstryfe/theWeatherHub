@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.swf', ['ngRoute'])
+angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
 
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/swf', {
@@ -18,7 +18,7 @@ angular.module('myApp.swf', ['ngRoute'])
       // this.testMethod = function () {
       //   this.testData = 'Test data works';
       // };
-      this.weatherData = '';
+      this.weatherData = {};
       this.config = {
         user_zip: '',
         geoCoords: {
@@ -71,8 +71,9 @@ angular.module('myApp.swf', ['ngRoute'])
               }
               console.log('responseData: ', responseData.data.properties)
               //console.log(this.weatherData)
-              weatherData = responseData.data.properties
-              config.weatherData = responseData.data.properties
+              weatherData.weatherData = responseData.data.properties
+              //console.log('weatherData: ', weatherData)
+              //config.weatherData = responseData.data.properties
               resolve (responseData.data.properties)
             })
         })

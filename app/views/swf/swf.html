@@ -21,14 +21,15 @@
   </button>
 </form>
 
+<h4>Config:</h4>
+<json-tree object=" swf.config"></json-tree>
+<hr>
+
 <div class="testData">
-  <div>
+  <div class="datahldr">
     <h4>Test Data:</h4>
-    <pre>{{ swf.weatherData | json : 2}}</pre>
-  </div>
-  <div>
-    <h4>Config:</h4>
-    <pre>{{ swf.config | json : 2 }}</pre>
+    <json-tree object=" swf.weatherData"></json-tree>
+    <!--<pre>{{ swf.weatherData | json : 2}}</pre>-->
   </div>
 
 </div>
