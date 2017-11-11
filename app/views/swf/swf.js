@@ -5,7 +5,8 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/swf', {
       templateUrl: 'views/swf/swf.html',
-      controller: 'SwfCtrl as swf'
+      controller: 'SwfCtrl as swf',
+			css: 'views/swf/swf.css'
     });
   }])
 
@@ -20,6 +21,10 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
       // };
       this.weatherData = {};
       this.config = {
+        progress: {
+          value: 0,
+          status: ''
+				},
         user_zip: '',
         geoCoords: {
           lat: '',
@@ -48,7 +53,11 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
 
           //build google url
           config.google.full_url = config.google.base_url + config.user_zip + config.google.key
-
+          
+          //update progress
+          config.progress.value = 25;
+          config.progress.status ='Building google url...';
+          
           $http({method: 'GET', url: config.google.full_url})
           // GET GEOCOORDS
             .then(function(responseGeo) {
@@ -58,12 +67,21 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
 
               // build and assign wGov Url
               config.wGov.full_url = config.wGov.base_url + config.geoCoords.lat + ',' + config.geoCoords.lng;
+							
+              //update progress
+							config.progress.value = 50;
+							config.progress.status = 'Obtained geocoords.  Building Wgov GRID url...'
+							
               return $http({method: 'GET', url: config.wGov.full_url})
             })
             .then(function(responseGov) {
               config.wGov.grid_url = responseGov.data.properties.forecastGridData
-              console.log('config: ', config)
-              return $http({method: 'GET', url: config.wGov.grid_url })
+
+							//update progress
+							config.progress.value = 75;
+              config.progress.status = 'GRID coords obtained.  Getting weather data...'
+	
+							return $http({method: 'GET', url: config.wGov.grid_url })
             })
             .then(function(responseData) {
               if(!responseData){
@@ -74,7 +92,12 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
               weatherData.weatherData = responseData.data.properties
               //console.log('weatherData: ', weatherData)
               //config.weatherData = responseData.data.properties
-              resolve (responseData.data.properties)
+              
+							//update progress
+							config.progress.data = 100;
+              config.progress.status = 'Weather data obtained.  Pull Complete!!'
+	
+							resolve (responseData.data.properties)
             })
         })
       }

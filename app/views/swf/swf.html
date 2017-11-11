@@ -1,35 +1,47 @@
-<h1>{{ swf.title }} </h1>
-<span>{{ swf.details }}</span>
+<div class="container">
+  <div class="jumbotron">
+    <div class="page-header">
+      <h1> {{ swf.title }} </h1>
+      <span> {{ swf.details }} </span>
+    </div>
 
+    <div class="col-lg-6 zip-input-box">
+      <form>
+        <div class="input-group">
+          <input type="text" ng-model="zip" placeholder="Enter Zipcode..." />
+          <span class="input-group-btn">
+            <button
+              class="btn btn-default"
+              type="submit"
+              ng-click="swf.getData(zip, swf.config, swf.weatherData)"
+            >Go!
+            </button>
+        </span>
+        </div><!-- /input-group -->
+      </form>
+    </div><!-- /.col-lg-6 -->
 
-<form>
-  <div>
-    <label>Enter Zipcode</label>
-    <input type="text" ng-model="zip"  />
+    <!-- progress bar -->
+    <div class="progress progress-bar-weather">
+      <div class="progress-bar bg-info" role="progressbar" aria-valuenow="{{ swf.config.progress.data }}%" aria-valuemin="0" aria-valuemax="100" style="width: {{ swf.config.progress.data }}%;">
+        {{ swf.config.progress.status }}
+      </div>
+    </div>
+
   </div>
 
-  <div class="alert"
-       ng-class="{ 'alert-warning': zip.length < characters, 'alert-danger': zip.length > characters }"
-  >
-    <div ng-show="zip.length < characters">You have less than 5 characters!</div>
-    <div ng-show="zip.length > characters">You have more than 5 characters!</div>
-    <div ng-show="zip.length === characters"></div>
+
+
+  <h4>Config:</h4>
+  <json-tree object=" swf.config" start-expanded="true"></json-tree>
+  <hr>
+
+  <div class="testData">
+    <div class="datahldr">
+      <h4>Test Data:</h4>
+      <json-tree object=" swf.weatherData" start-expanded="true"></json-tree>
+      <!--<pre>{{ swf.weatherData | json : 2}}</pre>-->
+    </div>
+
   </div>
-
-  <button type="submit" ng-click="swf.getData(zip, swf.config, swf.weatherData)">
-    Get Forecast!
-  </button>
-</form>
-
-<h4>Config:</h4>
-<json-tree object=" swf.config"></json-tree>
-<hr>
-
-<div class="testData">
-  <div class="datahldr">
-    <h4>Test Data:</h4>
-    <json-tree object=" swf.weatherData"></json-tree>
-    <!--<pre>{{ swf.weatherData | json : 2}}</pre>-->
-  </div>
-
 </div>
