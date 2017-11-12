@@ -23,12 +23,16 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
       this.config = {
         progress: {
           value: 0,
-          status: ''
+          status: '',
+          buildUrl: {},
+          getGeoCoords: {},
+          getGridData: {},
+          getForecastData: {}
 				},
         user_zip: '',
         location: {
-          city: '',
-          state: '',
+          city: null,
+          state: null,
           geoCoords: {
             lat: '',
             lng: ''
@@ -50,7 +54,7 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
 
       this.getData = function (zip, config, weatherData) {
         return new Promise(function(resolve, reject) {
-          console.log('zip: ', zip, 'config: ', config)
+          //console.log('zip: ', zip, 'config: ', config)
 
           // append zip to config object
           config.user_zip = zip;
@@ -59,14 +63,14 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
           config.google.full_url = config.google.base_url + config.user_zip + config.google.key
           
           //update progress
-          config.progress.value = 25;
-          config.progress.status ='Building google url...';
+          config.progress.buildUrl.value = 15;
+          config.progress.buildUrl.status ='Asking google for things.';
           
           $http({method: 'GET', url: config.google.full_url})
           // GET GEOCOORDS
             .then(function(responseGeo) {
               // assign lat and lon to config
-              console.log('google response: ', responseGeo)
+              //console.log('google response: ', responseGeo)
               config.location.geoCoords.lat = responseGeo.data.results[0].geometry.location.lat;
               config.location.geoCoords.lng = responseGeo.data.results[0].geometry.location.lng;
 
@@ -78,8 +82,8 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
               config.wGov.full_url = config.wGov.base_url + config.location.geoCoords.lat + ',' + config.location.geoCoords.lng;
 							
               //update progress
-							config.progress.value = 50;
-							config.progress.status = 'Obtained geocoords.  Building Wgov GRID url...'
+							config.progress.getGeoCoords.value = 25;
+							config.progress.getGeoCoords.status = 'GeoCoords obtained...'
 							
               return $http({method: 'GET', url: config.wGov.full_url})
             })
@@ -87,8 +91,8 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
               config.wGov.grid_url = responseGov.data.properties.forecastGridData
 
 							//update progress
-							config.progress.value = 75;
-              config.progress.status = 'GRID coords obtained.  Getting weather data...'
+							config.progress.getGridData.value = 25;
+              config.progress.getGridData.status = 'GRID complete!  Getting weather data...'
 	
 							return $http({method: 'GET', url: config.wGov.grid_url })
             })
@@ -96,99 +100,19 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
               if(!responseData){
                 return reject("Something went wrong")
               }
-              console.log('responseData: ', responseData.data.properties)
+              //console.log('responseData: ', responseData.data.properties)
               //console.log(this.weatherData)
               weatherData.weatherData = responseData.data.properties
               //console.log('weatherData: ', weatherData)
               //config.weatherData = responseData.data.properties
               
 							//update progress
-							config.progress.data = 100;
-              config.progress.status = 'Weather data obtained.  Pull Complete!!'
+							config.progress.getForecastData.value = 35;
+              config.progress.getForecastData.status = 'Weather data obtained.  Pull Complete!!'
 	
 							resolve (responseData.data.properties)
             })
         })
       }
 
-      //this.getData.bind(this)
-
     }]);
-
-// 'use strict';
-//
-// angular.module('myApp.swf', ['ngRoute'])
-//
-//     .config(['$routeProvider', function($routeProvider) {
-//       $routeProvider.when('/swf', {
-//         templateUrl: 'views/swf/swf.html',
-//         controller: 'SwfCtrl as swf'
-//       });
-//     }])
-//
-//     .controller('SwfCtrl', [
-//       '$http',
-//       function($http) {
-//         this.title = 'SWF'
-//         this.details = 'Simple Weather Forecast (SWF).  A simple daily forecast.  Data harvested from weather.gov\'s API.';
-//
-//         // this.testMethod = function () {
-//         //   this.testData = 'Test data works';
-//         // };
-//
-//         this.config = {
-//           user_zip: '',
-//           geoCoords: {
-//             lat: '',
-//             lng: ''
-//           },
-//           headers: {'User-Agent': 'request', 'Accept': 'application/geo+json', 'version': '1'},
-//           google: {
-//             base_url: 'https://maps.googleapis.com/maps/api/geocode/json?address=',
-//             full_url: '',
-//             key: '&key=AIzaSyAk8F3D59z5IRwcDfBc0B6eoRpyUx9JSPQ'
-//           },
-//           wGov: {
-//             base_url: 'https://api.weather.gov/points/',
-//             full_url: 'https://api.weather.gov/points/38.863,-77.4817',
-//           }
-//         }
-//
-//
-//         this.getData = function (zip, config) {
-//           console.log('zip: ', zip, 'config: ', config)
-//
-//           // append zip to config object
-//           config.user_zip = zip;
-//
-//           //build google url
-//           config.google.full_url = config.google.base_url + config.user_zip + config.google.key
-//
-//           $http({method: 'GET', url: config.google.full_url})
-//
-//           // GET GEOCOORDS
-//               .then(function(response){
-//                 console.log('response from google: ', response)
-//                 // assign lat and lon to config
-//                 config.geoCoords.lat = response.data.results[0].geometry.location.lat;
-//                 config.geoCoords.lng = response.data.results[0].geometry.location.lng;
-//
-//                 // build and assign wGov Url
-//                 config.wGov.full_url = config.wGov.base_url + config.geoCoords.lat + ',' + config.geoCoords.lng;
-//                 console.log('wGov Url: ', config.wGov.full_url)
-//                 return config
-//               })
-//
-//           // GET weathergrid
-//           console.log('config outside of http: ', config)
-//           $http({method: 'GET', url: config.wGov.full_url})
-//               .then(function(response) {
-//                 console.log('wGov response: ', response)
-//                 config.wGov.grid_url = response.data.properties.forecaseGridData
-//                 console.log('config: ', config)
-//                 return config
-//               })
-//         }
-//
-//
-//       }]);
