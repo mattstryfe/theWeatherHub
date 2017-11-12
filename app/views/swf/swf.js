@@ -26,9 +26,13 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
           status: ''
 				},
         user_zip: '',
-        geoCoords: {
-          lat: '',
-          lng: ''
+        location: {
+          city: '',
+          state: '',
+          geoCoords: {
+            lat: '',
+            lng: ''
+          }
         },
         headers: {'User-Agent': 'request', 'Accept': 'application/geo+json', 'version': '1'},
         google: {
@@ -62,11 +66,16 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
           // GET GEOCOORDS
             .then(function(responseGeo) {
               // assign lat and lon to config
-              config.geoCoords.lat = responseGeo.data.results[0].geometry.location.lat;
-              config.geoCoords.lng = responseGeo.data.results[0].geometry.location.lng;
+              console.log('google response: ', responseGeo)
+              config.location.geoCoords.lat = responseGeo.data.results[0].geometry.location.lat;
+              config.location.geoCoords.lng = responseGeo.data.results[0].geometry.location.lng;
+
+              // assign location values
+              config.location.city  = responseGeo.data.results[0].address_components[1].long_name;
+              config.location.state = responseGeo.data.results[0].address_components[2].long_name;
 
               // build and assign wGov Url
-              config.wGov.full_url = config.wGov.base_url + config.geoCoords.lat + ',' + config.geoCoords.lng;
+              config.wGov.full_url = config.wGov.base_url + config.location.geoCoords.lat + ',' + config.location.geoCoords.lng;
 							
               //update progress
 							config.progress.value = 50;
