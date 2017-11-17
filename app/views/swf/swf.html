@@ -47,7 +47,10 @@
   <div class="forecast-area" ng-if="swf.config.location.city !=null" >
     <h3>{{ swf.config.location.city }}, {{ swf.config.location.state }}</h3>
     <div class="forecast-5day">
-      <div class="forecast-day">
+      <div
+        class="forecast-day"
+        ng-repeat="forecast in forecasts"
+      >
 
       </div>
     </div>

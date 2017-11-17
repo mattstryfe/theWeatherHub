@@ -13,13 +13,20 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
   .controller('SwfCtrl', [
     '$http',
     function($http) {
+
+      // metadata for angular templates
       this.title = 'SWF'
       this.details = 'Simple Weather Forecast (SWF).  A simple daily forecast.  Data harvested from weather.gov\'s API.';
 
-      // this.testMethod = function () {
-      //   this.testData = 'Test data works';
-      // };
+      // empty object for weatherData
       this.weatherData = {};
+
+      // compile data settings
+      const settings = {
+        valuesToPull: ['temperature', 'precipitation', 'dewpoint']
+      }
+
+      // config for http requests
       this.config = {
         progress: {
           value: 0,
@@ -54,8 +61,6 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
 
       this.getData = function (zip, config, weatherData) {
         return new Promise(function(resolve, reject) {
-          //console.log('zip: ', zip, 'config: ', config)
-
           // append zip to config object
           config.user_zip = zip;
 
@@ -101,7 +106,7 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
                 return reject("Something went wrong")
               }
               //console.log('responseData: ', responseData.data.properties)
-              //console.log(this.weatherData)
+              //console.log(this.weatherData) this is a test
               weatherData.weatherData = responseData.data.properties
               //console.log('weatherData: ', weatherData)
               //config.weatherData = responseData.data.properties
@@ -109,10 +114,42 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
 							//update progress
 							config.progress.getForecastData.value = 35;
               config.progress.getForecastData.status = 'Weather data obtained.  Pull Complete!!'
-	
+
+              compileData(settings, weatherData.weatherData)
 							resolve (responseData.data.properties)
-            })
-        })
+
+            });
+        });
+      };
+
+      function testTime() {
+        let isoStr = '2017-11-17T08:00:00+00:00/P7DT17H';
+
+        // test isoStr
+        // console.log('to UTC', moment(isoStr).format())
+        // console.log('is duration', moment.duration(isoStr).toJSON())
+        let parsedDate = isoStr.substring(0, isoStr.indexOf('/'))
+
+        // console.log('parsed Data:', parsedDate);
+        // console.log('check with moment: ', moment(isoStr));
+        // console.log('check newData: ', moment(parsedDate));
       }
 
+      function compileData (settings, weatherData) {
+        console.log('settings: ', settings)
+        console.log('weatherData: ', weatherData)
+        //this.parsedWeatherData = {};
+
+        angular.forEach(weatherData, (vals, keys) => {
+          //console.log('v', v);
+          // if (keys == 'temperature') {
+          //console.log('temps only!', vals)
+          angular.forEach(settings.valuesToPull, (settingsVals, settingsKeys) => {
+            if (settingsVals == keys) {
+              console.log('match!', settingsKeys);
+            }
+          });
+          // }
+        });
+      }
     }]);
