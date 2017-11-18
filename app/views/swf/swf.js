@@ -20,6 +20,7 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
 
       // empty object for weatherData
       this.weatherData = {};
+      this.trimmedData = {};
 
       // compile data settings
       const settings = {
@@ -65,7 +66,7 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
       }
 
 
-      this.getData = function (zip, config, weatherData) {
+      this.getData = function (zip, config, weatherData, trimmedData) {
         return new Promise(function(resolve, reject) {
           // append zip to config object
           config.user_zip = zip;
@@ -111,17 +112,19 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
               if(!responseData){
                 return reject("Something went wrong")
               }
-              //console.log('responseData: ', responseData.data.properties)
-              //console.log(this.weatherData) this is a test
+
               weatherData.weatherData = responseData.data.properties
-              //console.log('weatherData: ', weatherData)
-              //config.weatherData = responseData.data.properties
               
 							//update progress
 							config.progress.getForecastData.value = 35;
               config.progress.getForecastData.status = 'Weather data obtained.  Pull Complete!!'
 
-              processData(settings, weatherData.weatherData)
+              // Trim and process data.  Extract only what's needed.  trimmedData is made available here.
+              processData(settings, weatherData.weatherData, trimmedData)
+
+              // Prep data for UI.  Establish/mutate objects accordingly.  returns data by date.
+              prepData(trimmedData)
+
 							resolve (responseData.data.properties)
 
             });
@@ -141,9 +144,12 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
         // console.log('check newData: ', moment(parsedDate));
       }
 
-      function processData (settings, weatherData) {
-        // console.log('settings: ', settings)
-        console.log('weatherData: ', weatherData)
+      function prepData (processedWeatherData) {
+        console.log('data to prep: ', processedWeatherData)
+
+      }
+
+      function processData (settings, weatherData, trimmedData) {
         let targetedWeatherData = {};
 
         // assign valuesToPull to new object.
@@ -161,8 +167,6 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
           });
         });
 
-        //this.finalWeather = parsedWeatherData
-        // console.log('new weatherData: ', weatherData)
-        console.log('targetedWeatherData: ', targetedWeatherData)
+        trimmedData.trimmedData = targetedWeatherData
       }
-    }]);
+}]);
