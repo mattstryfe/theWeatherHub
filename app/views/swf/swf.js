@@ -144,37 +144,25 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
       function processData (settings, weatherData) {
         // console.log('settings: ', settings)
         console.log('weatherData: ', weatherData)
-        let parsedWeatherData = {};
-
-        // ForEach entry in the valuesToPull array
-        angular.forEach(settings.valuesToPull, (pullProp, k) => {
-          // if weatherData has a matching property
-          if (weatherData.hasOwnProperty(pullProp)) {
-
-            // Assign keys to parsedWeatherData
-            //parsedWeatherData[pullProp] = parsedWeatherData[pullProp]
-            //console.log('parsedweatherdata ', parsedWeatherData)
-
-            // this strips all the ISO8601 php duration timestamp nonsense from the validTime values
-            angular.forEach(weatherData[pullProp].values, (v, k) => {
-              let newTime = v.validTime.substring(0, v.validTime.indexOf('/'))
-              //console.log('value: ', v, k);
-              v.validTime = newTime
-              console.log('valid? ', moment(newTime).isValid());
-
-              //console.log('pullprop', pullProp);
-              //parsedWeatherData[pullProp][k] = weatherData[pullProp][v]
-            });
-          }
-        });
+        let targetedWeatherData = {};
 
         // assign valuesToPull to new object.
-        angular.forEach(settings.valuesToPull, (pullProp, k) => {
-          parsedWeatherData[pullProp] = Object.assign({}, weatherData[pullProp])
-        })
+        angular.forEach(settings.valuesToPull, (targetPropVal, k) => {
+          // copy specific target object data to parsedWeatherData
+          targetedWeatherData[targetPropVal] = Object.assign({}, weatherData[targetPropVal])
+
+          // this strips all the ISO8601 php duration timestamp nonsense from the validTime values
+          angular.forEach(targetedWeatherData[targetPropVal].values, (v, k) => {
+            // cut the end off the ISO8601 time and place it with nothing.
+            let newTime = v.validTime.substring(0, v.validTime.indexOf('/'))
+
+            // write new time back to object
+            v.validTime = newTime;
+          });
+        });
 
         //this.finalWeather = parsedWeatherData
-        console.log('new weatherData: ', weatherData)
-        console.log('parsedWeatherData: ', parsedWeatherData)
+        // console.log('new weatherData: ', weatherData)
+        console.log('targetedWeatherData: ', targetedWeatherData)
       }
     }]);
