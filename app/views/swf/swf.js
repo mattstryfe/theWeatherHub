@@ -23,7 +23,13 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
 
       // compile data settings
       const settings = {
-        valuesToPull: ['temperature', 'precipitation', 'dewpoint']
+        valuesToPull: [
+          'temperature',
+          'probabilityOfPrecipitation',
+          'quantitativePrecipitation',
+          'dewpoint',
+          'maxTemperature',
+          'minTemperature']
       }
 
       // config for http requests
@@ -115,7 +121,7 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
 							config.progress.getForecastData.value = 35;
               config.progress.getForecastData.status = 'Weather data obtained.  Pull Complete!!'
 
-              compileData(settings, weatherData.weatherData)
+              processData(settings, weatherData.weatherData)
 							resolve (responseData.data.properties)
 
             });
@@ -135,21 +141,26 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
         // console.log('check newData: ', moment(parsedDate));
       }
 
-      function compileData (settings, weatherData) {
+      function processData (settings, weatherData) {
         console.log('settings: ', settings)
         console.log('weatherData: ', weatherData)
         //this.parsedWeatherData = {};
 
-        angular.forEach(weatherData, (vals, keys) => {
-          //console.log('v', v);
-          // if (keys == 'temperature') {
-          //console.log('temps only!', vals)
-          angular.forEach(settings.valuesToPull, (settingsVals, settingsKeys) => {
-            if (settingsVals == keys) {
-              console.log('match!', settingsKeys);
-            }
-          });
-          // }
+
+        angular.forEach(settings.valuesToPull, (v,k) => {
+          if (weatherData.hasOwnProperty(v)) {
+            console.log('key/value: ', v, '/', k)
+            console.log('weatherDataProperty:', weatherData[v].values);
+
+            // this strips all the ISO8601 php duration timestamp nonsense from the validTime values
+            angular.forEach(weatherData[v].values, (v,k) => {
+              let newTime = v.validTime.substring(0, v.validTime.indexOf('/'))
+              console.log('value: ', v)
+              v.validTime = newTime
+              console.log('new value: ', v)
+            });
+        }
         });
+
       }
     }]);
