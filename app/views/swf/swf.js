@@ -142,25 +142,39 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
       }
 
       function processData (settings, weatherData) {
-        console.log('settings: ', settings)
+        // console.log('settings: ', settings)
         console.log('weatherData: ', weatherData)
-        //this.parsedWeatherData = {};
+        let parsedWeatherData = {};
 
+        // ForEach entry in the valuesToPull array
+        angular.forEach(settings.valuesToPull, (pullProp, k) => {
+          // if weatherData has a matching property
+          if (weatherData.hasOwnProperty(pullProp)) {
 
-        angular.forEach(settings.valuesToPull, (v,k) => {
-          if (weatherData.hasOwnProperty(v)) {
-            console.log('key/value: ', v, '/', k)
-            console.log('weatherDataProperty:', weatherData[v].values);
+            // Assign keys to parsedWeatherData
+            //parsedWeatherData[pullProp] = parsedWeatherData[pullProp]
+            //console.log('parsedweatherdata ', parsedWeatherData)
 
             // this strips all the ISO8601 php duration timestamp nonsense from the validTime values
-            angular.forEach(weatherData[v].values, (v,k) => {
+            angular.forEach(weatherData[pullProp].values, (v, k) => {
               let newTime = v.validTime.substring(0, v.validTime.indexOf('/'))
-              console.log('value: ', v)
+              //console.log('value: ', v, k);
               v.validTime = newTime
-              console.log('new value: ', v)
+              console.log('valid? ', moment(newTime).isValid());
+
+              //console.log('pullprop', pullProp);
+              //parsedWeatherData[pullProp][k] = weatherData[pullProp][v]
             });
-        }
+          }
         });
 
+        // assign valuesToPull to new object.
+        angular.forEach(settings.valuesToPull, (pullProp, k) => {
+          parsedWeatherData[pullProp] = Object.assign({}, weatherData[pullProp])
+        })
+
+        //this.finalWeather = parsedWeatherData
+        console.log('new weatherData: ', weatherData)
+        console.log('parsedWeatherData: ', parsedWeatherData)
       }
     }]);
