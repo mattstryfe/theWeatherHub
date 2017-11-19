@@ -159,17 +159,22 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
           dailyForecast[date] = dailyForecast[date]
           dailyForecast[date] = {}
           settings.valuesToPull.forEach((category) => {
-            dailyForecast[date][category] = {}
+            dailyForecast[date][category] = [];
           })
         }
 
-        processedWeatherData.trimmedData.temperature.values.forEach((element) => {
+        settings.valuesToPull.forEach((category) => {
+          let categoryArr = []
+          // todo add date loop above category loop
+          processedWeatherData.trimmedData[category].values.forEach((element) => {
           //console.log('all elements: ', element)
-          if (element.validTime.includes('2017-11-23')) {
-            console.log(element);
-          }
+            if (element.validTime.includes('2017-11-21')) {
+              dailyForecast['2017-11-21'][category].push(element)
+            }
+          });
 
-        });
+        })
+
 
         console.log('daily forecast obj:', dailyForecast)
         // angular.forEach(settings.valuesToPull, (targetPropVal) => {
