@@ -94,8 +94,8 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
               config.wGov.full_url = config.wGov.base_url + config.location.geoCoords.lat + ',' + config.location.geoCoords.lng;
 							
               //update progress
-							config.progress.getGeoCoords.value = 25;
-							config.progress.getGeoCoords.status = 'GeoCoords obtained...'
+                config.progress.getGeoCoords.value = 25;
+                config.progress.getGeoCoords.status = 'GeoCoords obtained...'
 							
               return $http({method: 'GET', url: config.wGov.full_url})
             })
