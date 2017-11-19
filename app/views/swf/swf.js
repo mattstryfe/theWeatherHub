@@ -123,7 +123,7 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
               processData(settings, weatherData.weatherData, trimmedData)
 
               // Prep data for UI.  Establish/mutate objects accordingly.  returns data by date.
-              prepData(trimmedData)
+              prepData(settings, trimmedData)
 
 							resolve (responseData.data.properties)
 
@@ -144,8 +144,94 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
         // console.log('check newData: ', moment(parsedDate));
       }
 
-      function prepData (processedWeatherData) {
+      function prepData (settings, processedWeatherData) {
+        let fiveDay = {};
+        const forecastLength = 5;
+        const today = moment().utc();
+
+        // need to convert data from categorically organized to daily organized.
         console.log('data to prep: ', processedWeatherData)
+
+        // create an array of dates starting with now.
+        for (let i=0; i < forecastLength; i++) {
+          // push UTC to array
+          //fiveDay.push(today.clone().add(i, 'days').utc().format('YYYY-MM-DD'));
+          let date = today.clone().add(i, 'days').utc().format('YYYY-MM-DD')
+          //console.log('date:', date)
+          fiveDay[date] = fiveDay[date];
+        }
+
+        let text = '2017';
+        let dailyForecast = {};
+        let day = '2017-11-19'; // day test
+
+        angular.forEach(settings.valuesToPull, (targetPropVal, k) => {
+          console.log('targetPropVal', targetPropVal)
+
+          // console.log('prop.values', prop.values)
+          angular.forEach(processedWeatherData.trimmedData[targetPropVal].values, (v, k) => {
+            for (let day in fiveDay){
+              if (v.validTime.includes(day)) {
+                // console.log('day', day)
+                // console.log('targetPropVal', targetPropVal)
+                 console.log('value', v)
+                // console.log('fiveday before', fiveDay)
+                // fiveDay[day] = fiveDay[day]
+                // console.log('fiveday after', fiveDay)
+
+                fiveDay[day] = Object.assign({}, [targetPropVal])
+
+                // this works but overwrites the object each time.
+                fiveDay[day][targetPropVal] = Object.assign({}, v)
+
+                //console.log('5day inside', fiveDay)
+                //fiveDay[day][targetPropVal] = fiveDay[day][targetPropVal][v]
+                //console.log('new fiveDay', day)
+              }
+            }
+          })
+        })
+
+        // processedWeatherData.forEach((element, index) => {
+        //   console.log('element')
+        // })
+
+        //processedWeatherData.trimmedData.forEach()
+        // angular.forEach(processedWeatherData.trimmedData, (val, k) => {
+        //   console.log('val:', val)
+        //   angular.forEach(val.values, (value, key) => {
+        //     console.log('match', value.validTime);
+        //     for
+        //     // angular.forEach(fiveDay, (day, key) => {
+        //     //   console.log('day', day)
+        //     //   if (value.validTime.includes(day)) {
+        //     //    console.log('hit', day)
+        //     //   }
+        //     // })
+        //   })
+
+          // angular.forEach(fiveDay, (v, k) => {
+          //   console.log(val.)
+          //   if (val.values.validDate === v) {
+          //     console.log('match!', v)
+          //   }
+          // })
+
+        // })
+        // angular.forEach(processedWeatherData.trimmedData, (property, key) => {
+        //   console.log('property', property)
+        //   angular.forEach(property.values, (prop, k) => {
+        //     console.log('prop', prop);
+        //     if (prop.validTime === true ) {
+        //
+        //     }
+        //   });
+        //   // for (let value in property.values) {
+        //   //   console.log('match', value);
+        //   // }
+        // })
+
+        console.log('5day: ', fiveDay)
 
       }
 

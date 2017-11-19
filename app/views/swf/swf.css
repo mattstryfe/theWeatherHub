@@ -1,3 +1,18 @@
 .zip-input-box {margin-top: 10px;}
 .jumbotron {padding-bottom: 1rem; padding-top: 1rem;}
 .progress-bar-weather{margin-top:15px;}
+
+/*forecast day stuffs*/
+.forecast-5day {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.forecast-day {
+    min-width: 45px;
+    min-height: 75px;
+    padding: 1rem;
+    border: 1px solid #0375B4;
+    border-radius: 5px;
+}
