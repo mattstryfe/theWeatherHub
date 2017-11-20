@@ -21,6 +21,7 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
       // empty object for weatherData
       this.weatherData = {};
       this.trimmedData = {};
+      this.finalWeatherData = {};
 
       // compile data settings
       const settings = {
@@ -66,7 +67,7 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
       }
 
 
-      this.getData = function (zip, config, weatherData, trimmedData) {
+      this.getData = function (zip, config, weatherData, trimmedData, finalWeatherData) {
         return new Promise(function(resolve, reject) {
           // append zip to config object
           config.user_zip = zip;
@@ -123,7 +124,7 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
               processData(settings, weatherData.weatherData, trimmedData)
 
               // Prep data for UI.  Establish/mutate objects accordingly.  returns data by date.
-              prepData(settings, trimmedData)
+              prepData(settings, trimmedData, finalWeatherData)
 
 							resolve (responseData.data.properties)
 
@@ -131,25 +132,11 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
         });
       };
 
-      function testTime() {
-        let isoStr = '2017-11-17T08:00:00+00:00/P7DT17H';
-
-        // test isoStr
-        // console.log('to UTC', moment(isoStr).format())
-        // console.log('is duration', moment.duration(isoStr).toJSON())
-        let parsedDate = isoStr.substring(0, isoStr.indexOf('/'))
-
-        // console.log('parsed Data:', parsedDate);
-        // console.log('check with moment: ', moment(isoStr));
-        // console.log('check newData: ', moment(parsedDate));
-      }
-
-      function prepData (settings, processedWeatherData) {
+      function prepData (settings, processedWeatherData, finalWeatherData) {
         let dailyForecast = {};
         const forecastLength = 5;
         const today = moment().utc();
         const dateArr = [];
-
         // create an array of dates starting with now.
         // use forecast length to determine how many to make.
         for (let i=0; i < forecastLength; i++) {
@@ -173,6 +160,7 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
             // make sure it knows category is an array
             dailyForecast[date][category] = [];
           });
+          //console.log('dailyForecast', dailyForecast)
         }
 
         // Turn weather.gov's 'categorically grouped data' into 'date grouped data'.
@@ -192,7 +180,9 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
 						});
 					})
         })
-        console.log('daily forecast obj:', dailyForecast)
+
+        finalWeatherData = dailyForecast
+        console.log(finalWeatherData)
       }
 
       function processData (settings, weatherData, trimmedData) {
