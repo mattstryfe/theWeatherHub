@@ -19,9 +19,9 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
       this.details = 'Simple Weather Forecast (SWF).  A simple daily forecast.  Data harvested from weather.gov\'s API.';
 
       // empty object for weatherData
-      this.weatherData = {};
-      this.trimmedData = {};
-      this.finalWeatherData = {};
+      this.weatherData = {};        // passed in swf.html!
+      this.trimmedData = {};        // passed in swf.html!
+      this.finalWeatherData = {};   // passed in swf.html!
 
       // compile data settings
       const settings = {
@@ -68,6 +68,9 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
 
 
       this.getData = function (zip, config, weatherData, trimmedData, finalWeatherData) {
+        console.log('weatherData', weatherData)
+        console.log('trimmedData', trimmedData)
+        console.log('finalWeatherData', finalWeatherData)
         return new Promise(function(resolve, reject) {
           // append zip to config object
           config.user_zip = zip;
@@ -181,8 +184,20 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
 					})
         })
 
-        finalWeatherData = dailyForecast
-        console.log(finalWeatherData)
+        // working copy using angular.forEach incase needed later.
+        /*angular.forEach(settings.valuesToPull, (category) => {
+          angular.forEach(dateArr, (day) => {
+            angular.forEach(processedWeatherData.trimmedData[category].values, (element) => {
+              if(element.validTime.includes(day)) {
+								dailyForecast[day][category].push(element)
+              }
+            });
+					});
+        });*/
+
+        // assign dailyForecast to finalWeatherData.finalWeatherData.
+        // This must be passed via the ng-click in swf.html
+        finalWeatherData.finalWeatherData = dailyForecast
       }
 
       function processData (settings, weatherData, trimmedData) {
@@ -203,6 +218,8 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
           });
         });
 
+				// assign targetedWeatherData to trimmedData.trimmedData.
+				// This must be passed via the ng-click in swf.html
         trimmedData.trimmedData = targetedWeatherData
       }
 }]);
