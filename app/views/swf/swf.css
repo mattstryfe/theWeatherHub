@@ -3,6 +3,7 @@
 .progress-bar-weather{margin-top:15px;}
 
 /*forecast day stuffs*/
+.forecast-area {margin-bottom: 20px;}
 .forecast-5day {
     display: flex;
     flex-direction: row;
@@ -10,9 +11,15 @@
     justify-content: space-evenly;
 }
 .forecast-day {
-    min-width: 45px;
-    min-height: 75px;
+    min-width: 100px;
+    max-width: 145px;
+    min-height: 175px;
     padding: 1rem;
     border: 1px solid #0375B4;
     border-radius: 5px;
+    overflow: hidden;
+}
+
+.underline {
+    border-bottom:1px solid #c0c0c0;
 }
