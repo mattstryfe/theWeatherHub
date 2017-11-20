@@ -150,23 +150,39 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
         const today = moment().utc();
         const dateArr = [];
 
-        // need to convert data from categorically organized to daily organized.
-        console.log('data to prep: ', processedWeatherData)
-
         // create an array of dates starting with now.
+        // use forecast length to determine how many to make.
         for (let i=0; i < forecastLength; i++) {
+
           // push UTC to array
+          // must use clone because moment mutates the original
           let date = today.clone().add(i, 'days').utc().format('YYYY-MM-DD')
+
+          // push date to array for processing purposes.
+          // this is strictly to make stepping through each date easier.
           dateArr.push(date)
+
+          // append date to dailyForecast Object
           dailyForecast[date] = dailyForecast[date]
+
+          // Force it to be an object because shut up!
           dailyForecast[date] = {}
+
+          // for each valueToPull append the category to the object
           settings.valuesToPull.forEach((category) => {
+            // make sure it knows category is an array
             dailyForecast[date][category] = [];
-          })
+          });
         }
 
+        // Turn weather.gov's 'categorically grouped data' into 'date grouped data'.
+        // Settings contains an array of values to pull from the forecast.
+        // For each one, get the dateArr and establish a day.
+        // Once a [category] and [day] are established, start stripping the shitty weather.gov
+        // response into usable information.
+        // Push each array to the corresdonding day.category.
+        // ex: 2017-11-23.dewpoint[validTime: 'time', value: '4]
         settings.valuesToPull.forEach((category) => {
-          // todo add date loop above category loop
           dateArr.forEach((day) => {
 						processedWeatherData.trimmedData[category].values.forEach((element) => {
 							//console.log('all elements: ', element)
@@ -175,8 +191,6 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
 							}
 						});
 					})
-
-
         })
         console.log('daily forecast obj:', dailyForecast)
       }
