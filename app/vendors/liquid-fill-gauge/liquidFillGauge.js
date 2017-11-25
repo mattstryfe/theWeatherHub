@@ -40,15 +40,15 @@ function loadLiquidFillGauge(elementId, value, config) {
   //var gauge = d3.select(angular.element).select("#" + elementId)
   // console.log('gauge value: ', gauge)
   // console.log('config', config)
-  // var radius = Math.min(config.minWidth, config.minHeight)/2;
-  // var locationX = config.minWidth/2 - radius;
-  // var locationY = config.minHeight/2 - radius;
-  console.log(radius, locationX, locationY)
-  var radius = Math.min(parseInt(gauge.style("width")), parseInt(gauge.style("height")))/2;
-  var locationX = parseInt(gauge.style("width"))/2 - radius;
-  var locationY = parseInt(gauge.style("height"))/2 - radius;
+  var radius = Math.min(config.minWidth, config.minHeight)/2;
+  var locationX = config.minWidth/2 - radius;
+  var locationY = config.minHeight/2 - radius;
+  // console.log(radius, locationX, locationY)
+  // var radius = Math.min(parseInt(gauge.style("width")), parseInt(gauge.style("height")))/2;
+  // var locationX = parseInt(gauge.style("width"))/2 - radius;
+  // var locationY = parseInt(gauge.style("height"))/2 - radius;
   var fillPercent = Math.max(config.minValue, Math.min(config.maxValue, value))/config.maxValue;
-  console.log(radius, locationX, locationY)
+  // console.log(radius, locationX, locationY)
 
   var waveHeightScale;
   if(config.waveHeightScaling){

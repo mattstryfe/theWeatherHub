@@ -13,9 +13,15 @@ angular.module('myApp', [
   'myApp.blog',
   'myApp.fillGauge'
 
-]).
-config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-  $locationProvider.hashPrefix('!');
+])
+  .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+    $locationProvider.hashPrefix('!');
 
-  $routeProvider.otherwise({redirectTo: '/home'});
-}]);
+    $routeProvider.otherwise({redirectTo: '/home'});
+  }])
+
+  // .controller('MainCtrl', function MainCtrl() {
+  //   this.hero = {
+  //     name: 'Spawn'
+  //   };
+  // });

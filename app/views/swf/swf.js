@@ -14,6 +14,10 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
     '$http',
     function($http) {
 
+      // this.newHero = {
+      //   name: 'Spawn'
+      // };
+
       // metadata for angular templates
       this.title = 'SWF'
       this.details = 'Simple Weather Forecast (SWF).  A simple daily forecast.  Data harvested from weather.gov\'s API.';
