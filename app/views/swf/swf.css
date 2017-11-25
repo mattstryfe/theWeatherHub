@@ -2,6 +2,13 @@
 .jumbotron {padding-bottom: 1rem; padding-top: 1rem;}
 .progress-bar-weather{margin-top:15px;}
 
+/*Water gauge*/
+.water-gauge {
+    /*display: flex;*/
+    min-width: 50px;
+    /*max-width: 100px;*/
+}
+
 /*forecast day stuffs*/
 .forecast-area {margin-bottom: 20px;}
 .forecast-5day {
@@ -11,9 +18,9 @@
     justify-content: space-evenly;
 }
 .forecast-day {
-    min-width: 100px;
-    max-width: 145px;
-    min-height: 175px;
+    min-width: 5rem;
+    max-width: 6rem;
+    min-height: 3rem;
     padding: 1rem;
     border: 1px solid #0375B4;
     border-radius: 5px;

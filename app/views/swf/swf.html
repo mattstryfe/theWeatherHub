@@ -32,15 +32,26 @@
 
   </div>
 
+  <div class="water-gauge">
+    <!--<svg id="fillgauge1" width="19%" height="200" onclick="gauge1.update(NewValue());"></svg>-->
+    <!--<svg id="fillgauge1" width="10%" height="10%" onclick="gauge1.update(NewValue());"></svg>-->
+    <!--<svg id="fillgauge" width="10%" height="10%" onclick=""></svg>-->
+  </div>
+
   <div class="forecast-area" ng-if="swf.config.location.city !=null" >
     <h3>{{ swf.config.location.city }}, {{ swf.config.location.state }}</h3>
     <div class="forecast-5day">
+
       <div class="forecast-day"
-           ng-repeat="(key, data) in swf.finalWeatherData.finalWeatherData"
+           ng-repeat="(key, data) in swf.finalWeatherData.finalWeatherData track by $index"
       >
+        <p>Index: {{ $index }}</p>
         <h4>{{ key | date: "EEE" }}</h4>
         <p class="underline">{{ data.maxTemperature[0].value * 1.8 + 32 | number: 0 }}</p>
         <p>{{ data.minTemperature[0].value * 1.8 + 32 | number: 0 }}</p>
+        <fill-gauge></fill-gauge>
+        <!--<svg id="fillgauge width="50%" height="75px" onclick=""></svg>-->
+
       </div>
     </div>
   </div>
@@ -48,21 +59,4 @@
   <h4 class="spacer">Final Data:</h4>
   <json-tree object="swf.finalWeatherData" start-expanded="true"></json-tree>
   <hr>
-<!--
-  <h4>Trimmed Data:</h4>
-  <json-tree object="swf.trimmedData" start-expanded="true"></json-tree>
-  <hr>
-
-  <h4>Config:</h4>
-  <json-tree object=" swf.config" start-expanded="true"></json-tree>
-  <hr>
-
-  <div class="testData">
-    <div class="datahldr">
-      <h4>Weather Data:</h4>
-      <json-tree object=" swf.weatherData" start-expanded="true"></json-tree>
-      &lt;!&ndash;<pre>{{ swf.weatherData | json : 2}}</pre>&ndash;&gt;
-    </div>
-
-  </div>-->
 </div>

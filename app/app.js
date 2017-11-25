@@ -10,7 +10,8 @@ angular.module('myApp', [
   'myApp.footer',
   'myApp.swf',
   'myApp.projects',
-  'myApp.blog'
+  'myApp.blog',
+  'myApp.fillGauge'
 
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {

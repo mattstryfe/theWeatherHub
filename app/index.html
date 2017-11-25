@@ -101,8 +101,17 @@
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
   -->
+  <!-- Angular specific -->
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="vendors/angular-route-styles/route-styles.js"></script>
+  <script src="../node_modules/angular-json-tree/dist/angular-json-tree.min.js"></script>
+  <script src="../node_modules/moment/moment.js"></script>
+  <script src="components/version/version.js"></script>
+  <script src="components/version/version-directive.js"></script>
+  <script src="components/version/interpolate-filter.js"></script>
+
+  <!-- app pages/data -->
   <script src="app.js"></script>
   <script src="views/home/home.js"></script>
   <script src="views/base/base.js"></script>
@@ -110,12 +119,14 @@
   <script src="views/projects/projects.js"></script>
   <script src="views/blog/blog.js"></script>
   <script src="components/footer/footer.js"></script>
-  <script src="vendors/angular-route-styles/route-styles.js"></script>
+  <script src="components/fillGauge/fillGauge.js"></script>
+
+  <!-- d3 -->
+  <script src="http://d3js.org/d3.v3.min.js" language="JavaScript"></script>
+  <script src="vendors/liquid-fill-gauge/liquidFillGauge.js"></script>
+
+  <!-- removed -->
   <!--<script src="../node_modules/angular-breadcrumb/dist/angular-breadcrumb.min.js"></script>-->
-  <script src="../node_modules/angular-json-tree/dist/angular-json-tree.min.js"></script>
-  <script src="../node_modules/moment/moment.js"></script>
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
+
 </body>
 </html>
