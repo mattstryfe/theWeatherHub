@@ -1,0 +1,5 @@
+
+body > div > div > div.forecast-area.ng-scope > div > div:nth-child(1) > twh-gauge {
+    width: 90px;
+    height: 90px;
+}
