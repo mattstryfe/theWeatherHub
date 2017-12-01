@@ -11,7 +11,8 @@ angular.module('myApp', [
   'myApp.swf',
   'myApp.projects',
   'myApp.blog',
-  'myApp.fillGauge'
+  'myApp.fillGauge',
+  'myApp.cust-gauge'
 
 ])
   .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {

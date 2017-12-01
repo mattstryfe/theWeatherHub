@@ -35,23 +35,26 @@ function loadLiquidFillGauge(elementId, value, config) {
 
   // console.log('d3 select all', d3.selectAll('svg'))
   // console.log('element', angular.element(document).find('#gauge'))
-  // console.log('doc find', document.querySelectorAll('#gauge'))
-  // console.log('d3', d3.select($element[0]).select("#" + elementId))
+  //console.log('querySelectorAll', document.querySelectorAll('#gauge'))
+  // console.log('getElementsByTagName: ', d3.select(document.getElementsByTagName('svg')))
+  console.log('d3selectAll', d3.selectAll("#" + elementId))
 
+  // console.log('d3', d3.select($element[0]).select("#" + elementId))
+  //console.log('this', d3.select(this))
+  console.log('d3selectElement', d3.select(angular.element))
   var gauge = d3.selectAll("#" + elementId);
+  //var gauge = d3.select(document.getElementsByTagName('svg')[0])
 
   //var gauge = d3.select(angular.element).select("#" + elementId)
-  // console.log('gauge value: ', gauge)
-  // console.log('config', config)
   // var radius = Math.min(config.minWidth, config.minHeight)/2;
   // var locationX = config.minWidth/2 - radius;
   // var locationY = config.minHeight/2 - radius;
-  // console.log(radius, locationX, locationY)
+
   var radius = Math.min(parseInt(gauge.style("width")), parseInt(gauge.style("height")))/2;
   var locationX = parseInt(gauge.style("width"))/2 - radius;
   var locationY = parseInt(gauge.style("height"))/2 - radius;
   var fillPercent = Math.max(config.minValue, Math.min(config.maxValue, value))/config.maxValue;
-  // console.log(radius, locationX, locationY)
+
 
   var waveHeightScale;
   if(config.waveHeightScaling){

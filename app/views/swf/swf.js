@@ -72,9 +72,6 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
 
 
       this.getData = function (zip, config, weatherData, trimmedData, finalWeatherData) {
-        console.log('weatherData', weatherData)
-        console.log('trimmedData', trimmedData)
-        console.log('finalWeatherData', finalWeatherData)
         return new Promise(function(resolve, reject) {
           // append zip to config object
           config.user_zip = zip;

@@ -13,7 +13,30 @@ function TwhGaugeController () {
   var ctrl = this;
   const precip = ctrl.precip
   const index = ctrl.index
-  console.log('index', index)
+
+
+  ctrl.simpleChart = function() {
+    console.log('running simpleChart()...')
+    var data = [30, 86, 168, 281, 303, 365];
+
+    //console.log('d3selectAll:', d3.selectAll(".chart"))
+    console.log('d3select:', d3.select(element[0]).select('.chart'))
+
+    d3.select(".chart")
+      .selectAll("div")
+      .data(data)
+      .enter()
+      .append("div")
+      .style("width", function(d) { return d + "px"; })
+      // .style("height", function(d) { return d + "px"; })
+      .style("background-color", function(d) { return "steelblue"})
+      .style("padding", function(d) { return "3px"})
+      .style("margin", function(d) { return "1px"})
+      .text(function(d) { return d; });
+  }
+
+  ctrl.simpleChart()
+
 
   // calculate qauntitativePrecip
   // this will be used for the water gauge
@@ -32,7 +55,7 @@ function TwhGaugeController () {
 
   // WATER GAUGE AREA //
   ctrl.buildWaterGauge = function() {
-    console.log('initiating water gauge...');
+    //console.log('initiating water gauge...');
 
     var config = liquidFillGaugeDefaultSettings();
     //config1.circleColor = "#D4AB6A";
@@ -50,12 +73,12 @@ function TwhGaugeController () {
     config.minWidth = 100;
     config.minHeight = 100;
 
-    const list = ['fillgauge']
-    for(const gauge in list) {
-      console.log('creating fillGauge', list[gauge])
-      loadLiquidFillGauge(list[gauge], 85, config)
-    }
-    //loadLiquidFillGauge("fillgauge", 85, config);
+    // const list = ['fillgauge']
+    // for(const gauge in list) {
+    //   //console.log('creating fillGauge', list[gauge])
+    //   loadLiquidFillGauge(list[gauge], 85, config)
+    // }
+    loadLiquidFillGauge("fillgauge", 85, config);
     // var gauge1 = loadLiquidFillGauge("fillgauge1", 85, config);
     // var gauge2 = loadLiquidFillGauge("fillgauge2", 85, config);
     // var gauge3 = loadLiquidFillGauge("fillgauge3", 85, config);
@@ -103,5 +126,10 @@ function TwhGaugeController () {
   // return '<svg id="fillgauge" width="100%" height="75px" onclick=""></svg>'
   }
 
-  ctrl.buildWaterGauge()
+  // ctrl.buildGauges = function() {
+  //   console.log('d3selectAll', d3.selectAll("#" + elementId))
+  //   for
+  // }
+
+  //ctrl.buildWaterGauge()
 }

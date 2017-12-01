@@ -1,5 +1,9 @@
-
-body > div > div > div.forecast-area.ng-scope > div > div:nth-child(1) > twh-gauge {
-    width: 90px;
-    height: 90px;
+.chart div {
+    font: 10px sans-serif;
+    background-color: steelblue;
+    text-align: right;
+    padding: 3px;
+    margin: 1px;
+    color: white;
+    z-index:100;
 }

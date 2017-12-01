@@ -45,19 +45,21 @@
       <div class="forecast-day"
            ng-repeat="(key, data) in swf.finalWeatherData.finalWeatherData track by $index"
       >
-        <span>{{ $index }}</span>
+        <!--<span>{{ $index }}</span>-->
         <h4>{{ key | date: "EEE" }}</h4>
         <p class="underline">{{ data.maxTemperature[0].value * 1.8 + 32 | number: 0 }}</p>
         <p>{{ data.minTemperature[0].value * 1.8 + 32 | number: 0 }}</p>
-        <twh-gauge
-          index="{{$index}}"
+        <cust-gauge data="data.quantitativePrecipitation"></cust-gauge>
+        <!--<twh-gauge
           precip="data.quantitativePrecipitation"
         >
-        </twh-gauge>
+        </twh-gauge>-->
       </div>
     </div>
   </div>
 
+  <h4>Gauge</h4>
+  <cust-gauge data="data.quantitativePrecipitation"></cust-gauge>
   <h4 class="spacer">Final Data:</h4>
   <json-tree object="swf.finalWeatherData" start-expanded="true"></json-tree>
   <hr>
