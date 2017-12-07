@@ -4,7 +4,6 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
     function () {
       return {
         restrict: 'E',
-        //template: '<div class="pie_chart"></div>',
         templateUrl: 'shared/gauge-directive/gaugeDirective.html',
         bindings: {
           data: '<',
@@ -29,38 +28,28 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
           });
 
           function simpleChart(data) {
-            console.log('data', data)
+            // console.log('data', data)
             //console.log('running simpleChart()...')
-            //var data = [30, 86, 168, 281, 303, 365];
+            // var data = [30, 86, 168, 281, 303, 365];
+            let propOfPrecip = []
+            data.probabilityOfPrecipitation.forEach((entry) => {
+              propOfPrecip.push(entry.value)
+            })
 
-            //console.log('d3selectAll:', d3.selectAll(".chart"))
-            //console.log('d3select:', d3.select(element[0]).select('.chart'))
+            let gaugeData = propOfPrecip
+            //console.log('d3selectAll:', d3.selectAll(".gauge"))
+            // console.log('d3select:', d3.select(element[0]).select('.gauge'))
 
-            d3.select(".gauge")
+            //d3.select(".gauge")
+            d3.select(element[0]).select('.gauge')
               .selectAll("div")
-              .data(data)
+              .data(gaugeData)
               .enter()
               .append("div")
-              .style("width", function(d) { return d + "px"; })
-              // .style("height", function(d) { return d + "px"; })
-              .style("background-color", function(d) { return "steelblue"})
-              .style("padding", function(d) { return "3px"})
-              .style("margin", function(d) { return "1px"})
+              .attr("class", "bar-chart-defaults")
+              .style("height",              function(d) { return d + "px"; })
               .text(function(d) { return d; });
           }
-
-
-
-
-
-
-
-
-
-          function prepGaugeData(data) {}
-
-          function buildWaterGuage (gaugeData) {}
-
         }
       };
     }

@@ -1,0 +1,7 @@
+.gauge {display:flex; flex-direction: row; align-items: flex-end}
+.bar-chart-defaults {
+    width: .2rem;
+    background-color: steelblue;
+    padding:1px;
+    margin:1px;
+}
