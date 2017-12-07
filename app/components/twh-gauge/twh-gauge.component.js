@@ -20,7 +20,7 @@ function TwhGaugeController () {
     var data = [30, 86, 168, 281, 303, 365];
 
     //console.log('d3selectAll:', d3.selectAll(".chart"))
-    console.log('d3select:', d3.select(element[0]).select('.chart'))
+    //console.log('d3select:', d3.select(element[0]).select('.chart'))
 
     d3.select(".chart")
       .selectAll("div")

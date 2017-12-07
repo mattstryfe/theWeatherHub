@@ -4,28 +4,61 @@ angular.module('myApp.cust-gauge', ['ngRoute'])
   function () {
     return {
       restrict: 'E',
-      // template: "<svg width='75' height='75'></svg>",
-      scope: {
-        data: '='
+      template: '<div class="pie_chart"></div>',
+      bindings: {
+        data: '<',
+        gaugeIndex: '<',
       },
-
       link: function (scope, element) {
-        console.log('element', element[0])
-        // var svgContainer = d3.select(element[0])
-        //   .append("svg")
-        //   .attr("width", 50)
-        //   .attr("height", 50);
-        // svgContainer.append("circle")
-        //   .style("stroke", "gray")
-        //   .style("fill", "black")
-        //   .attr("cx", 30)
-        //   .attr("cy", 30)
-        //   .attr("r", 20);
 
-        buildWaterGuage()
+        scope.render = function(data, gaugeIndex) {
+          if (data === undefined) {
+            return;
+          }
+          // svgContainer.selectAll("*").remove()
+          //d3.select(element[0].svg).remove()
 
-        function buildWaterGuage () {
-          //console.log('initiating water gauge...');
+          console.log('index', gaugeIndex)
+          let gaugeData = prepGaugeData(data)
+          buildWaterGuage(gaugeData)
+          ;
+        };
+        scope.$watch('data', function(){
+          scope.render(scope.data);
+        });
+
+
+
+
+
+
+
+        function prepGaugeData(data) {
+          let probOfPrecip = 0;
+          let quanOfPrecip = 0;
+
+          // Get probOfPrecip %
+          angular.forEach(data.probabilityOfPrecipitation, (entry) => {
+            //console.log('value', entry)
+            probOfPrecip += entry.value
+          });
+
+          // Get precip total for day
+          angular.forEach(data.quantitativePrecipitation, (entry) => {
+            quanOfPrecip += entry.value
+          })
+
+          return {
+            quanOfPrecip: quanOfPrecip,
+            probOfPrecip: parseInt(probOfPrecip / data.probabilityOfPrecipitation.length)
+          }
+
+        }
+
+        function buildWaterGuage (gaugeData) {
+          // console.log('probOfPrecip', gaugeData.probOfPrecip);
+          // console.log('element', d3.select(element[0]));
+          // const gaugeId = d3.select(element[0])
 
           var config = liquidFillGaugeDefaultSettings();
           config.circleThickness = 0.1;
@@ -38,7 +71,9 @@ angular.module('myApp.cust-gauge', ['ngRoute'])
           // add size to config
           config.width = 50;
           config.height = 50;
-          loadLiquidFillGauge("fillgauge", 85, config);
+          //console.log('gaugeData', gaugeData)
+          loadLiquidFillGauge("fillgauge1", gaugeData.probOfPrecip, config);
+          // loadLiquidFillGauge(gaugeId, gaugeData.probOfPrecip, config);
 
         }
         function liquidFillGaugeDefaultSettings() {
@@ -69,24 +104,31 @@ angular.module('myApp.cust-gauge', ['ngRoute'])
         function loadLiquidFillGauge(elementId, value, config) {
           if(config == null) config = liquidFillGaugeDefaultSettings();
 
-          //var gauge = d3.selectAll("#" + elementId);
-          //var gauge = d3.select(element[0])
+          // svgContainer.selectAll("*").remove();
+          // svg.selectAll('g.axis').remove();
 
-          var gauge = d3.select(element[0])
-            .append("svg")
+          //d3.select('#fillgauge1').selectAll("*").remove()
+          // d3.select("#gauge1").remove()
+          //d3.select(gauge).remove()
+          // var gauge = null;
+          //elementId = "gauge1"
+          var gauge = d3.select(element[0]).select(".pie_chart")
+            .append("svg:svg")
+            //.attr("id","gauge1")
             .attr("width", config.width)
             .attr("height", config.height);
-          console.log('var gauge', gauge)
-          //var gauge = d3.select(document.getElementsByTagName('svg')[0])
+          //console.log('gauge selectAll * ', gauge.selectAll('*'))
 
-          //var gauge = d3.select(angular.element).select("#" + elementId)
-          var radius = Math.min(config.width, config.height)/2;
-          var locationX = config.width/2 - radius;
-          var locationY = config.height/2 - radius;
 
-          // var radius = Math.min(parseInt(gauge.style("width")), parseInt(gauge.style("height")))/2;
-          // var locationX = parseInt(gauge.style("width"))/2 - radius;
-          // var locationY = parseInt(gauge.style("height"))/2 - radius;
+          // Hard set values incase d3 doesnt have them yet.  This seems to have been resovled
+          // by applying the scope.watch.  But i dont like it...
+          // var radius = Math.min(config.width, config.height)/2;
+          // var locationX = config.width/2 - radius;
+          // var locationY = config.height/2 - radius;
+
+          var radius = Math.min(parseInt(gauge.style("width")), parseInt(gauge.style("height")))/2;
+          var locationX = parseInt(gauge.style("width"))/2 - radius;
+          var locationY = parseInt(gauge.style("height"))/2 - radius;
           var fillPercent = Math.max(config.minValue, Math.min(config.maxValue, value))/config.maxValue;
 
 
@@ -110,6 +152,7 @@ angular.module('myApp.cust-gauge', ['ngRoute'])
           var fillCircleMargin = circleThickness + circleFillGap;
           var fillCircleRadius = radius - fillCircleMargin;
           var waveHeight = fillCircleRadius*waveHeightScale(fillPercent*100);
+          // console.log('waveheight', waveHeight)
 
           var waveLength = fillCircleRadius*2/config.waveCount;
           var waveClipCount = 1+config.waveCount;
@@ -199,7 +242,7 @@ angular.module('myApp.cust-gauge', ['ngRoute'])
             .attr("cy", radius)
             .attr("r", fillCircleRadius)
             .style("fill", config.waveColor);
-
+          console.log('fillCircleGroup', fillCircleGroup)
           // Text where the wave does overlap.
           var text2 = fillCircleGroup.append("text")
             .text(textRounder(textStartValue) + percentText)
