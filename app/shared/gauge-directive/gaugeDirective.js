@@ -47,8 +47,8 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
               .enter()
               .append("div")
               .attr("class", "bar-chart-defaults")
-              .style("height",              function(d) { return d + "px"; })
-              .text(function(d) { return d; });
+              .style("height",              function(d) { return d + "px"; });
+              //.text(function(d) { return d; });
           }
         }
       };
