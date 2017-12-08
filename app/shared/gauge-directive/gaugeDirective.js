@@ -14,12 +14,8 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
             if (data === undefined) {
               return;
             }
-            // svgContainer.selectAll("*").remove()
-            //d3.select(element[0].svg).remove()
+            //svgContainer.selectAll("*").remove()
 
-            //console.log('index', gaugeIndex)
-            //let gaugeData = prepGaugeData(data)
-            //buildWaterGuage(gaugeData)
             simpleChart(data)
 
           };
@@ -28,27 +24,62 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
           });
 
           function simpleChart(data) {
-            // console.log('data', data)
-            //console.log('running simpleChart()...')
-            // var data = [30, 86, 168, 281, 303, 365];
+            // clear elements within holder each time.  Prevents overlap
+            d3.select(element[0]).selectAll('*').remove()
+
             let propOfPrecip = []
+            let quanOfprecip = 0;
+
             data.probabilityOfPrecipitation.forEach((entry) => {
               propOfPrecip.push(entry.value)
             })
 
+            data.quantitativePrecipitation.forEach((entry) => {
+              quanOfprecip += entry.value
+            })
+            console.log(quanOfprecip)
+
             let gaugeData = propOfPrecip
-            //console.log('d3selectAll:', d3.selectAll(".gauge"))
-            // console.log('d3select:', d3.select(element[0]).select('.gauge'))
 
             //d3.select(".gauge")
-            d3.select(element[0]).select('.gauge')
+            var gauge = d3.select(element[0])
               .selectAll("div")
               .data(gaugeData)
               .enter()
               .append("div")
+              .transition().ease("elastic")
               .attr("class", "bar-chart-defaults")
-              .style("height",              function(d) { return d + "px"; });
-              //.text(function(d) { return d; });
+              .style("height", function(d) { return d + "px"; });
+            console.log('gauge', gauge)
+            var data = [10, 20, 30, 40];
+            var circles = d3.select(element[0]).select('circle')
+            console.log('circles', circles)
+            circles.selectAll('circle').data(data)
+            circles.attr('r', function(d, i) { return d; });
+            // var quanOfPrecip = d3.select(element[0])
+            //   .selectAll("div")
+            //   .data(quanOfprecip)
+            //   .enter().append("div")
+            //   .attr('cx', 25)
+            //   .attr('cy', 15)
+            //   .attr('r', 5)
+            //   .style('fill', 'red');
+
+
+            //.text(function(d) { return d; });
+
+
+
+
+            // working copy
+            // d3.select(element[0])
+            //   .selectAll("div")
+            //   .data(gaugeData)
+            //   .enter()
+            //   .append("div")
+            //   .transition().ease("elastic")
+            //   .attr("class", "bar-chart-defaults")
+            //   .style("height", function(d) { return d + "px"; });
           }
         }
       };

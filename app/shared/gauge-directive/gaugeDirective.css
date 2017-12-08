@@ -1,11 +1,9 @@
-gauge-directive {width: 100%; display: flex; flex: 1 1 auto;}
-.gauge {
-    width:100%;
-    display:flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
-}
+gauge-directive {
+    width: 100%;
+    display: flex;
+    flex: 1 1 auto;
+    align-items: flex-end;}
+
 .bar-chart-defaults {
     display: flex;
     flex: 1 1 auto;
@@ -16,3 +14,11 @@ gauge-directive {width: 100%; display: flex; flex: 1 1 auto;}
     /*padding:1px;*/
     margin:1px;
 }
+
+/*
+.gauge {
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}*/

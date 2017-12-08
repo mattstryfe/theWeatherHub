@@ -50,11 +50,6 @@
         <p class="underline">{{ data.maxTemperature[0].value * 1.8 + 32 | number: 0 }}</p>
         <p>{{ data.minTemperature[0].value * 1.8 + 32 | number: 0 }}</p>
         <gauge-directive data="data"></gauge-directive>
-        <!--<cust-gauge id="gauge{{$index}}" data="data" gauge-index="{{$index}}"></cust-gauge>-->
-        <!--<twh-gauge-->
-          <!--precip="data.quantitativePrecipitation"-->
-        <!--&gt;-->
-        <!--</twh-gauge>-->
       </div>
     </div>
   </div>
