@@ -1,8 +1,8 @@
 gauge-directive {
+    position:relative;
     width: 100%;
     display: flex;
-    flex: 1 1 auto;
-    align-items: flex-end;}
+    flex: 1 1 auto;}
 
 .bar-chart-defaults {
     display: flex;
@@ -15,6 +15,29 @@ gauge-directive {
     margin:1px;
 }
 
+.graph {
+    position:relative;
+    display: flex;
+    flex: 1 1 auto;
+    width: 100%;
+    z-index: 1;
+    align-items: flex-end;
+}
+
+.precip-total {
+    /*display: flex;*/
+    /*flex: 1 1 auto;*/
+    position: absolute;
+    margin: auto auto;
+    bottom: -5px;
+    width:50%;
+    padding: 2px;
+    /*border: 1px solid #0375B4;*/
+    z-index: 10;
+    /*background-color: #0375B4;*/
+    color: black;
+    font-size: xx-large;
+}
 /*
 .gauge {
     width:100%;

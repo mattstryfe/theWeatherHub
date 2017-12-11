@@ -5,16 +5,16 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
       return {
         restrict: 'E',
         templateUrl: 'shared/gauge-directive/gaugeDirective.html',
-        bindings: {
-          data: '<',
+        scope: {
+          data: '<'
         },
+        bindings: {},
         link: function (scope, element) {
 
           scope.render = function(data, gaugeIndex) {
             if (data === undefined) {
               return;
             }
-            //svgContainer.selectAll("*").remove()
 
             simpleChart(data)
 
@@ -25,7 +25,8 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
 
           function simpleChart(data) {
             // clear elements within holder each time.  Prevents overlap
-            d3.select(element[0]).selectAll('*').remove()
+            // d3.select(element[0]).selectAll('*').remove()
+            d3.select(element[0]).select(".graph").selectAll('*').remove()
 
             let propOfPrecip = []
             let quanOfprecip = 0;
@@ -37,25 +38,31 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
             data.quantitativePrecipitation.forEach((entry) => {
               quanOfprecip += entry.value
             })
-            console.log(quanOfprecip)
 
             let gaugeData = propOfPrecip
+            scope.precipTotal = quanOfprecip
 
             //d3.select(".gauge")
-            var gauge = d3.select(element[0])
-              .selectAll("div")
+            // console.log('ele', d3.select(element[0]))
+            // console.log('ele + graph', d3.select(element[0]).select(".graph"))
+            console.log('graph only', d3.select(".graph"))
+            // var gauge = d3.select(element[0]).select(".graph")
+            // works var gauge = d3.select(element[0])
+            var gauge = d3.select(element[0]).select(".graph")
+              .selectAll(".graph")
               .data(gaugeData)
               .enter()
               .append("div")
               .transition().ease("elastic")
               .attr("class", "bar-chart-defaults")
-              .style("height", function(d) { return d + "px"; });
-            console.log('gauge', gauge)
-            var data = [10, 20, 30, 40];
-            var circles = d3.select(element[0]).select('circle')
-            console.log('circles', circles)
-            circles.selectAll('circle').data(data)
-            circles.attr('r', function(d, i) { return d; });
+              .style("height", function(d) { return d + "px"; })
+              .text(function(d) { return d; });
+
+            // var data = [10, 20, 30, 40];
+            // var circles = d3.select(element[0]).select('circle')
+            // console.log('circles', circles)
+            // circles.selectAll('circle').data(data)
+            // circles.attr('r', function(d, i) { return d; });
             // var quanOfPrecip = d3.select(element[0])
             //   .selectAll("div")
             //   .data(quanOfprecip)
