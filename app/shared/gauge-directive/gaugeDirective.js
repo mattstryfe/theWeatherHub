@@ -45,10 +45,10 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
             //d3.select(".gauge")
             // console.log('ele', d3.select(element[0]))
             // console.log('ele + graph', d3.select(element[0]).select(".graph"))
-            console.log('graph only', d3.select(".graph"))
+            //console.log('graph only', d3.select(".graph"))
             // var gauge = d3.select(element[0]).select(".graph")
             // works var gauge = d3.select(element[0])
-            var gauge = d3.select(element[0]).select(".graph")
+            var graph = d3.select(element[0]).select(".graph")
               .selectAll(".graph")
               .data(gaugeData)
               .enter()
@@ -56,8 +56,31 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
               .transition().ease("elastic")
               .attr("class", "bar-chart-defaults")
               .style("height", function(d) { return d + "px"; })
-              .text(function(d) { return d; });
+              .append("text")
+              .attr("transform", "rotate(-90)")
+              .text(function(d) {return d;});
+              //.text(function(d) { return d; })
+              //.attr("transform", "rotate(-90)");
 
+
+            // gauge
+            var gauge = d3.select(element[0]).select(".gauge-holder").append("svg");
+            var grad = gauge.append("defs").append("linearGradient")
+              .attr("id", "grad")
+              .attr("x1", "0%")
+              .attr("x2", "0%")
+              .attr("y1", "100%")
+              .attr("y2", "0%");
+            grad.append("stop").attr("offset", "50%").style("stop-color", "steelblue");
+            grad.append("stop").attr("offset", "50%").style("stop-color", "white");
+
+            var r = 20;
+            gauge.append("circle")
+              .attr("cx", r)
+              .attr('cy', r)
+              .attr('r', r)
+              //.attr('stroke', 'blue')
+              .attr('fill', 'url(#grad');
             // var data = [10, 20, 30, 40];
             // var circles = d3.select(element[0]).select('circle')
             // console.log('circles', circles)
