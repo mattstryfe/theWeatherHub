@@ -56,7 +56,8 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
               .data(gaugeData)
               .enter()
               .append("div")
-              //.transition().ease("elastic")
+              .transition()
+              .ease(d3.easeBounce)
               .attr("class", "bar-chart-defaults")
               .style("height", function(d) { return d + "px"; })
 
@@ -67,9 +68,9 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
             // NEW GRAPH AREA
             var parser = d3.timeParse('%Y-%m-%dT%H:%M:%S');
 
-            var margin = {top: 5, right: 5, bottom: 5, left: 5},
-              height = 100,
-              width = 200;
+            var margin = {top: 5, right: 5, bottom: 20, left: 35},
+              height = 70,
+              width = 170;
 
             var newGraph = d3.select(element[0]).select('.new-graph')
               .append('svg')
@@ -82,7 +83,10 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
             var x = d3.scaleTime()
               .rangeRound([0, width]);
             var y = d3.scaleLinear()
-              .rangeRound([height, 0]);
+              .domain([0, 100])
+              .range([height, 0]);
+              // .ticks(5);
+            //var y = d3.scaleLinear().rangeRound([height, 0]);
 
             var line = d3.line()
               .x(function(d) { return x(d.time); })
@@ -96,55 +100,43 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
             });
 
             x.domain(d3.extent(newGraphData, function(d) { return d.time; }));
-            y.domain(d3.extent(newGraphData, function(d) { return d.value; }));
-            // for (let i=0; i < probabilityOfPrecipitation.length; i++) {
-            //   d.date = probabilityOfPrecipitation[i].validTime;
-            //   d.temperature = probabilityOfPrecipitation[i].value;
-            // }
-            // let probOfPrecipArr = []
-            // for (const prop in newGraphData) {
-            //   probOfPrecipArr.push(newGraphData[prop])
-            // }
-            // console.log('probOfPrecipArr', probOfPrecipArr)
+            //y.domain(d3.extent(newGraphData, function(d) { return d.value; }));
 
-            // newGraphData.forEach(function(d) {
-            //   d.date = d.validTime;
-            //   d.temperature = +d.value;
-            //   console.log('d', d)
-            // });
-            // d3.tsv("data.tsv", function(d) {
-            //   d.date = parseTime(d.date);
-            //   d.close = +d.close;
-            //   return d;
-            // }, function(error, data) {
-            //   if (error) throw error;
+            g.append("g")
+              .attr("transform", "translate(0," + height + ")")
+              .call(d3.axisBottom(x)
+                .tickFormat(d3.timeFormat('%I %p'))
+                // .tickFormat("%I %p")
+                .ticks(d3.timeHour.every(6)))
+                // .tickFormat(d => d3.time.format(d, '%H')))
+                // // .tickFormat(d => d.d3.time.format('%H')))
+                // .tickFormat(d3.time.format("%H")))
+              .select(".domain")
+              .remove();
 
+            g.append("g")
+              .call(d3.axisLeft(y)
+                .ticks(4)
+                .tickFormat(d => d + '%'));
+                // .tickFormat('5', "%"));
+              // .append("text")
+              //   .attr("fill", "#000")
+              //   .attr("transform", "rotate(-90)")
+              //   .attr("y", 6)
+              //   .attr("dy", "0.71em")
+              //   .attr("text-anchor", "end")
+              // .text("Precip Chance ($)");
 
-
-              g.append("g")
-                .attr("transform", "translate(0," + height + ")")
-                .call(d3.axisBottom(x))
-                .select(".domain")
-                .remove();
-
-              g.append("g")
-                .call(d3.axisLeft(y))
-                .append("text")
-                .attr("fill", "#000")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 6)
-                .attr("dy", "0.71em")
-                .attr("text-anchor", "end")
-                .text("Precip Chance ($)");
-
-              g.append("path")
-                .datum(newGraphData)
+            g.append("path")
+              .datum(newGraphData)
                 .attr("fill", "none")
                 .attr("stroke", "steelblue")
                 .attr("stroke-linejoin", "round")
                 .attr("stroke-linecap", "round")
                 .attr("stroke-width", 1.5)
-                .attr("d", line);
+              .transition()
+              .ease(d3.easeBounce)
+              .attr("d", line);
 
 
 
