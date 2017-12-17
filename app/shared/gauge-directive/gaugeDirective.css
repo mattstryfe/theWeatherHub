@@ -39,7 +39,8 @@ gauge-directive {
     font-size: xx-large;
 }
 
-.gauge-holder {
+/*.new-graph {left:50px;}*/
+.gauge-holder{
     /*display: flex;*/
     /*flex: 1 1 auto;*/
     position: absolute;
@@ -52,4 +53,13 @@ gauge-directive {
     /*background-color: #0375B4;*/
     color: black;
     font-size: xx-large;
+}
+
+
+/*new graph styles*/
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
 }

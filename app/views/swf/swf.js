@@ -215,8 +215,9 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
           // this strips all the ISO8601 php duration timestamp nonsense from the validTime values
           angular.forEach(targetedWeatherData[targetPropVal].values, (v, k) => {
             // cut the end off the ISO8601 time and place it with nothing.
-            let newTime = v.validTime.substring(0, v.validTime.indexOf('/'))
-
+            // commented to allow cleaner time conversion in D3
+            // let newTime = v.validTime.substring(0, v.validTime.indexOf('/'))
+            let newTime = v.validTime.substring(0, v.validTime.indexOf('+'))
             // write new time back to object
             v.validTime = newTime;
           });
