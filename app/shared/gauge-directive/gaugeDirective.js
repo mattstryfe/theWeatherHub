@@ -28,6 +28,7 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
             // d3.select(element[0]).selectAll('*').remove()
             d3.select(element[0]).select(".graph").selectAll('*').remove()
             d3.select(element[0]).select(".new-graph").selectAll('*').remove()
+            console.log(d3.selectAll('.percent').selectAll('.tick'))
 
             let probfPrecip = []
             let quanOfprecip = 0;
@@ -51,6 +52,13 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
             // var gauge = d3.select(element[0]).select(".graph")
             // works var gauge = d3.select(element[0])
 
+
+            var gx = d3.scaleTime()
+              .rangeRound([0, width]);
+            var gy = d3.scaleLinear()
+              .domain([0, 100])
+              .range([height, 0]);
+
             var graph = d3.select(element[0]).select(".graph")
               .selectAll(".graph")
               .data(gaugeData)
@@ -59,7 +67,7 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
               .transition()
               .ease(d3.easeBounce)
               .attr("class", "bar-chart-defaults")
-              .style("height", function(d) { return d + "px"; })
+              .style("height", function(d) { return d + "%"; });
 
 
 
@@ -68,14 +76,15 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
             // NEW GRAPH AREA
             var parser = d3.timeParse('%Y-%m-%dT%H:%M:%S');
 
-            var margin = {top: 5, right: 5, bottom: 20, left: 35},
+            var margin = {top: 5, right: 5, bottom: 20, left: 10},
               height = 70,
-              width = 170;
+              width = 150;
 
             var newGraph = d3.select(element[0]).select('.new-graph')
               .append('svg')
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom);
+
             var g = newGraph.append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -105,6 +114,8 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
             g.append("g")
               .attr("transform", "translate(0," + height + ")")
               .call(d3.axisBottom(x)
+                .tickSizeOuter(0)
+                .tickSize(6, 0)
                 .tickFormat(d3.timeFormat('%I %p'))
                 // .tickFormat("%I %p")
                 .ticks(d3.timeHour.every(6)))
@@ -115,9 +126,13 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
               .remove();
 
             g.append("g")
+              .attr('class', 'percent')
               .call(d3.axisLeft(y)
+                .tickSizeOuter(0)
                 .ticks(4)
-                .tickFormat(d => d + '%'));
+                .tickSize(-width, 0)
+                .tickFormat(''));
+                // .tickFormat(d => d + '%'));
                 // .tickFormat('5', "%"));
               // .append("text")
               //   .attr("fill", "#000")

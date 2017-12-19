@@ -55,11 +55,40 @@ gauge-directive {
     font-size: xx-large;
 }
 
+.graph-line-holder {
+    position:absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index:5;
+    width:100%;
+    height:100%;
+}
+.graph-line {
+    /*position:absolute;*/
+    display:flex;
+    height:1px;
+    width:100%;
+    background-color:lightgrey;
+}
+.graph-line span {
+    font-size: xx-small;
+}
 
 /*new graph styles*/
-.axis path,
-.axis line {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
-}
+/*.axis path,*/
+/*.axis line {*/
+    /*fill: none;*/
+    /*stroke: #000;*/
+    /*shape-rendering: crispEdges;*/
+/*}*/
+/*.new-graph {min-width:125px;}*/
+/*.tick line {*/
+    /*stroke: lightgrey;*/
+    /*stroke-opacity: 0.7;*/
+    /*shape-rendering: crispEdges;*/
+/*}*/
+
+/*.tick path {*/
+    /*stroke-width: 0;*/
+/*}*/
