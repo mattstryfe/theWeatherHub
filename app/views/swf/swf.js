@@ -19,7 +19,7 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
       // };
 
       // metadata for angular templates
-      this.title = 'SWF'
+      this.title = 'SWF';
       this.details = 'Simple Weather Forecast (SWF).  A simple daily forecast.  Data harvested from weather.gov\'s API.';
 
       // empty object for weatherData
@@ -226,5 +226,11 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
 				// assign targetedWeatherData to trimmedData.trimmedData.
 				// This must be passed via the ng-click in swf.html
         trimmedData.trimmedData = targetedWeatherData
+      }
+
+      this.calcColor = function(data) {
+        switch (data.minTemp)
+        console.log('blue');
+        return 'blue';
       }
 }]);

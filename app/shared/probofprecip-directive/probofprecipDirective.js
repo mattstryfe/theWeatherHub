@@ -1,10 +1,10 @@
-angular.module('myApp.gaugeDirective', ['ngRoute'])
+angular.module('myApp.probofprecipDirective', ['ngRoute'])
 
-  .directive( 'gaugeDirective', [
+  .directive( 'probofprecipDirective', [
     function () {
       return {
         restrict: 'E',
-        templateUrl: 'shared/gauge-directive/gaugeDirective.html',
+        templateUrl: 'shared/probofprecip-directive/probofprecipDirective.html',
         scope: {
           data: '<'
         },
@@ -28,7 +28,7 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
             // d3.select(element[0]).selectAll('*').remove()
             d3.select(element[0]).select(".graph").selectAll('*').remove()
             d3.select(element[0]).select(".new-graph").selectAll('*').remove()
-            console.log(d3.selectAll('.percent').selectAll('.tick'))
+            // console.log(d3.selectAll('.percent').selectAll('.tick'))
 
             let probfPrecip = []
             let quanOfprecip = 0;
@@ -36,11 +36,11 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
 
             data.probabilityOfPrecipitation.forEach((entry) => {
               probfPrecip.push(entry.value)
-            })
+            });
 
             data.quantitativePrecipitation.forEach((entry) => {
               quanOfprecip += entry.value
-            })
+            });
 
             let gaugeData = probfPrecip
             scope.precipTotal = quanOfprecip
@@ -52,6 +52,9 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
             // var gauge = d3.select(element[0]).select(".graph")
             // works var gauge = d3.select(element[0])
 
+            var margin = {top: 5, right: 5, bottom: 20, left: 10},
+              height = 70,
+              width = 150;
 
             var gx = d3.scaleTime()
               .rangeRound([0, width]);
@@ -64,16 +67,27 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
               .data(gaugeData)
               .enter()
               .append("div")
+              // .text(function(d) { return d; })
               .transition()
               .ease(d3.easeBounce)
               .attr("class", "bar-chart-defaults")
-              .style("height", function(d) { return d + "%"; });
+              .style("height", function(d) { return d + "%"; })
+
+              // .append("text")
+              //   .attr("x", function(d) { return d.value - 3; })
+              //   .attr("y", height / 2)
+              //   .attr("dy", ".35em")
+              //   .text(function(d) { return d.value; });
+
+            // graph.append("text")
+            //   .attr("x", function(d) { return d.value - 3; })
+            //   .attr("y", height / 2)
+            //   .attr("dy", ".35em")
+            //   .text(function(d) { return d.value; });
 
 
 
-
-
-            // NEW GRAPH AREA
+           /* // NEW GRAPH AREA
             var parser = d3.timeParse('%Y-%m-%dT%H:%M:%S');
 
             var margin = {top: 5, right: 5, bottom: 20, left: 10},
@@ -152,27 +166,7 @@ angular.module('myApp.gaugeDirective', ['ngRoute'])
               .transition()
               .ease(d3.easeBounce)
               .attr("d", line);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+*/
 
             // gauge
             // var gauge = d3.select(element[0]).select(".gauge-holder").append("svg");

@@ -1,5 +1,5 @@
 /*home page */
-.col-lg-4 {display:flex; flex-direction:column; align-items:center;}
+.col-lg-4 {display:flex; flex-direction:column; align-items:center; margin-bottom:4rem;}
 .cust-circle {width:140px; height:140px; border: 1px solid transparent; border-radius:10px}
 .homepage {font-size: 150px;}
   /*colors*/

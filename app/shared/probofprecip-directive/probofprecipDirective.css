@@ -1,8 +1,9 @@
-gauge-directive {
+probofprecip-directive {
     position:relative;
     width: 100%;
     display: flex;
-    flex: 1 1 auto;}
+    flex: 1 1 auto;
+}
 
 .bar-chart-defaults {
     display: flex;
@@ -24,20 +25,20 @@ gauge-directive {
     align-items: flex-end;
 }
 
-.precip-total {
-    /*display: flex;*/
-    /*flex: 1 1 auto;*/
-    position: absolute;
-    margin: auto auto;
-    bottom: -5px;
-    width:50%;
-    padding: 2px;
-    /*border: 1px solid #0375B4;*/
-    z-index: 10;
-    /*background-color: #0375B4;*/
-    color: black;
-    font-size: xx-large;
-}
+/*.precip-total {*/
+    /*!*display: flex;*!*/
+    /*!*flex: 1 1 auto;*!*/
+    /*position: absolute;*/
+    /*margin: auto auto;*/
+    /*bottom: -5px;*/
+    /*width:50%;*/
+    /*padding: 2px;*/
+    /*!*border: 1px solid #0375B4;*!*/
+    /*z-index: 10;*/
+    /*!*background-color: #0375B4;*!*/
+    /*color: black;*/
+    /*font-size: xx-large;*/
+/*}*/
 
 /*.new-graph {left:50px;}*/
 .gauge-holder{
@@ -74,21 +75,3 @@ gauge-directive {
 .graph-line span {
     font-size: xx-small;
 }
-
-/*new graph styles*/
-/*.axis path,*/
-/*.axis line {*/
-    /*fill: none;*/
-    /*stroke: #000;*/
-    /*shape-rendering: crispEdges;*/
-/*}*/
-/*.new-graph {min-width:125px;}*/
-/*.tick line {*/
-    /*stroke: lightgrey;*/
-    /*stroke-opacity: 0.7;*/
-    /*shape-rendering: crispEdges;*/
-/*}*/
-
-/*.tick path {*/
-    /*stroke-width: 0;*/
-/*}*/

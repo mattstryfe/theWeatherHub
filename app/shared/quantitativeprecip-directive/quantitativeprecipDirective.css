@@ -1,0 +1,21 @@
+quantitativeprecip-directive {
+    /*position: absolute;*/
+    width: 100%;
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.precip-total {
+    /*display: flex;*/
+    /*flex: 1 1 auto;*/
+    position: absolute;
+    margin: auto auto;
+    bottom: -5px;
+    width:50%;
+    padding: 2px;
+    /*border: 1px solid #0375B4;*/
+    z-index: 10;
+    /*background-color: #0375B4;*/
+    color: black;
+    font-size: xx-large;
+}

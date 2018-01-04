@@ -24,9 +24,9 @@
 
     <!-- progress bar -->
     <div class="progress progress-bar-weather">
-      <div class="progress-bar bg-warning" role="progressbar" style="width: {{ swf.config.progress.buildUrl.value }}%"        aria-valuenow="{{ swf.config.progress.buildUrl.value }}" aria-valuemin="0" aria-valuemax="100">{{ swf.config.progress.buildUrl.status }}</div>
-      <div class="progress-bar bg-info" role="progressbar"    style="width: {{ swf.config.progress.getGeoCoords.value }}%"    aria-valuenow="{{ swf.config.progress.getGeoCoords.value }}" aria-valuemin="0" aria-valuemax="100">{{ swf.config.progress.getGeoCoords.status }}</div>
-      <div class="progress-bar" role="progressbar"            style="width: {{ swf.config.progress.getGridData.value }}%"     aria-valuenow="{{ swf.config.progress.getGridData.value }}" aria-valuemin="0" aria-valuemax="100">{{ swf.config.progress.getGridData.status }}</div>
+      <div class="progress-bar bg-warning" role="progressbar" style="width: {{ swf.config.progress.buildUrl.value }}%" aria-valuenow="{{ swf.config.progress.buildUrl.value }}" aria-valuemin="0" aria-valuemax="100">{{ swf.config.progress.buildUrl.status }}</div>
+      <div class="progress-bar bg-info" role="progressbar"    style="width: {{ swf.config.progress.getGeoCoords.value }}%" aria-valuenow="{{ swf.config.progress.getGeoCoords.value }}" aria-valuemin="0" aria-valuemax="100">{{ swf.config.progress.getGeoCoords.status }}</div>
+      <div class="progress-bar" role="progressbar"            style="width: {{ swf.config.progress.getGridData.value }}%" aria-valuenow="{{ swf.config.progress.getGridData.value }}" aria-valuemin="0" aria-valuemax="100">{{ swf.config.progress.getGridData.status }}</div>
       <div class="progress-bar bg-success" role="progressbar" style="width: {{ swf.config.progress.getForecastData.value }}%" aria-valuenow="{{ swf.config.progress.getForecastData.value }}" aria-valuemin="0" aria-valuemax="100">{{ swf.config.progress.getForecastData.status }}</div>
     </div>
 
@@ -45,11 +45,23 @@
       <div class="forecast-day"
            ng-repeat="(key, data) in swf.finalWeatherData.finalWeatherData track by $index"
       >
-        <!--<span>{{ $index }}</span>-->
-        <h4>{{ key | date: "EEE" }}</h4>
-        <p class="underline">{{ data.maxTemperature[0].value * 1.8 + 32 | number: 0 }}</p>
-        <p>{{ data.minTemperature[0].value * 1.8 + 32 | number: 0 }}</p>
-        <gauge-directive data="data"></gauge-directive>
+        <div class="top-container">
+          <div class="temps">
+            <h2 ng-class="swf.calcColor(data)">{{ data.maxTemperature[0].value * 1.8 + 32 | number: 0 }}</h2>
+            <h4>{{ key | date: "EEE" }}</h4>
+            <h2>{{ data.minTemperature[0].value * 1.8 + 32 | number: 0 }}</h2>
+          </div>
+
+          <quantitativeprecip-directive
+                  data="data">
+          </quantitativeprecip-directive>
+
+        </div>
+
+
+        <probofprecip-directive
+          data="data">
+        </probofprecip-directive>
       </div>
     </div>
   </div>
