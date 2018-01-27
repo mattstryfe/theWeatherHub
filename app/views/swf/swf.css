@@ -47,6 +47,11 @@
     justify-content: space-evenly;
 }
 
-.temps h2 {font-weight: 700;}
-/*.temps h4 {color:#17a2b8;}*/
-.blue { color: #0375B4}
+
+.day-of-week {margin-top:5px; font-size: 2vw;}
+.temps h2    {font-weight: 700; font-size: 4vw;}
+.red        {color: red;}
+.orange     {color: orange;}
+.green      {color: green; }
+.blue       {color: #0375B4; }
+.lightblue  {color: lightblue;}

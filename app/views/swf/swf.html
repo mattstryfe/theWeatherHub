@@ -46,14 +46,14 @@
            ng-repeat="(key, data) in swf.finalWeatherData.finalWeatherData track by $index"
       >
         <div class="top-container">
+          <h4 class="day-of-week">{{ key | date: "EEE" }}</h4>
           <div class="temps">
-            <h2 ng-class="swf.calcColor(data)">{{ data.maxTemperature[0].value * 1.8 + 32 | number: 0 }}</h2>
-            <h4>{{ key | date: "EEE" }}</h4>
-            <h2>{{ data.minTemperature[0].value * 1.8 + 32 | number: 0 }}</h2>
+            <h2 ng-class="swf.calcTempColor(data.minTemperature[0].value)">{{ data.minTemperature[0].value * 1.8 + 32 | number: 0 }}</h2>
+            <h2 ng-class="swf.calcTempColor(data.maxTemperature[0].value)">{{ data.maxTemperature[0].value * 1.8 + 32 | number: 0 }}</h2>
           </div>
 
           <quantitativeprecip-directive
-                  data="data">
+            data="data">
           </quantitativeprecip-directive>
 
         </div>

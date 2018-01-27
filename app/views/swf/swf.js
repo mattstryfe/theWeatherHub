@@ -228,9 +228,19 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
         trimmedData.trimmedData = targetedWeatherData
       }
 
-      this.calcColor = function(data) {
-        switch (data.minTemp)
-        console.log('blue');
-        return 'blue';
+      this.calcTempColor = function(temp) {
+        temp += temp * 1.8 + 32;
+
+        if (temp > 100) {
+          return 'red';
+        } else if (temp> 75) {
+          return 'orange';
+        } else if (temp > 50) {
+          return 'green';
+        } else if (temp > 30) {
+          return 'blue';
+        } else if (temp > 0) {
+          return 'lightblue';
+        }
       }
 }]);
