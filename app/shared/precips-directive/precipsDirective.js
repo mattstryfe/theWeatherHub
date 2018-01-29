@@ -16,25 +16,37 @@ angular.module('myApp.precipsDirective', ['ngRoute'])
               return;
             }
 
-            quantitativePrecip(data)
+            quantitativePrecip(data.quantitativePrecipitation);
+            calcSnowfallAmount(data.snowfallAmount);
 
           };
           scope.$watch('data', function(){
             scope.render(scope.data);
           });
 
-          function quantitativePrecip(data) {
+          // calculate snowfall, if there is any
+          function calcSnowfallAmount(snowfallAmount) {
+            console.log('snowfall amount', snowfallAmount);
+
+            let snowfallTotal = 0;
+            snowfallAmount.forEach((entry) => {
+              snowfallTotal += entry.value;
+            });
+            scope.snowfallTotal = snowfallTotal;
+          }
+
+          function quantitativePrecip(quantitativePrecipitation) {
             // console.log('data', data);
 
             let quanOfPrecip = 0;
 
-            data.quantitativePrecipitation.forEach((entry) => {
+            quantitativePrecipitation.forEach((entry) => {
               quanOfPrecip += entry.value;
             });
 
             scope.precipTotal = quanOfPrecip;
 
-            console.log('precipTotal', scope.precipTotal);
+            //console.log('precipTotal', scope.precipTotal);
 
           }
         }

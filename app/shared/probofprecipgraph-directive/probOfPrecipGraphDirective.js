@@ -24,7 +24,6 @@ angular.module('myApp.probofprecipgraphDirective', ['ngRoute'])
           });
 
           function simpleChart(data) {
-            console.log('data', data);
             // clear elements within holder each time.  Prevents overlap
             // d3.select(element[0]).selectAll('*').remove()
             d3.select(element[0]).select(".graph").selectAll('*').remove()

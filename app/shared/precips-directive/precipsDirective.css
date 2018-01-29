@@ -1,10 +1,30 @@
-quantitativeprecip-directive {
+precips-directive {
     /*position: absolute;*/
-    /*width: 100%;*/
-    /*display: flex;*/
-    /*flex: 1 1 auto;*/
+    width: 100%;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
+.precip-types {
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.precip-type {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.precip-type h4 {
+    font-size: 1vw;
+}
 /*.overall-total h2 {*/
     /*font-size: 3vw;*/
 /*}*/
