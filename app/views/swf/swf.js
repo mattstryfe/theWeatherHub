@@ -35,7 +35,9 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
           'quantitativePrecipitation',
           'dewpoint',
           'maxTemperature',
-          'minTemperature']
+          'minTemperature',
+          'snowfallAmount'
+        ]
       }
 
       // config for http requests
@@ -206,6 +208,7 @@ angular.module('myApp.swf', ['ngRoute', 'angular-json-tree'])
 
       function processData (settings, weatherData, trimmedData) {
         let targetedWeatherData = {};
+        console.log('weatherData', weatherData);
 
         // assign valuesToPull to new object.
         angular.forEach(settings.valuesToPull, (targetPropVal, k) => {

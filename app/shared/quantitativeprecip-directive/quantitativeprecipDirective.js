@@ -41,3 +41,6 @@ angular.module('myApp.quantitativeprecipDirective', ['ngRoute'])
       };
     }
   ]);
+
+// TODO rename this directive to precips.
+// it can then hold all variations.

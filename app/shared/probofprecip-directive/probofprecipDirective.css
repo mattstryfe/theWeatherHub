@@ -1,5 +1,6 @@
 probofprecip-directive {
     position:relative;
+    height:100px;
     width: 100%;
     display: flex;
     flex: 1 1 auto;
@@ -10,7 +11,7 @@ probofprecip-directive {
     flex: 1 1 auto;
     /*min-width:1px;*/
     /*margin:1px;*/
-    width: .2rem;
+    /*width: .2rem;*/
     background-color: steelblue;
     /*padding:1px;*/
     margin:1px;
