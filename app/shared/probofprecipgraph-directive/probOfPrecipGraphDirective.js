@@ -1,10 +1,10 @@
-angular.module('myApp.probofprecipDirective', ['ngRoute'])
+angular.module('myApp.probofprecipgraphDirective', ['ngRoute'])
 
-  .directive( 'probofprecipDirective', [
+  .directive( 'probofprecipgraphDirective', [
     function () {
       return {
         restrict: 'E',
-        templateUrl: 'shared/probofprecip-directive/probofprecipDirective.html',
+        templateUrl: 'shared/probofprecipgraph-directive/probOfPrecipGraphDirective.html',
         scope: {
           data: '<'
         },
@@ -24,6 +24,7 @@ angular.module('myApp.probofprecipDirective', ['ngRoute'])
           });
 
           function simpleChart(data) {
+            console.log('data', data);
             // clear elements within holder each time.  Prevents overlap
             // d3.select(element[0]).selectAll('*').remove()
             d3.select(element[0]).select(".graph").selectAll('*').remove()

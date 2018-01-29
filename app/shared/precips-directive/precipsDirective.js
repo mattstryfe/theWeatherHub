@@ -1,10 +1,10 @@
-angular.module('myApp.quantitativeprecipDirective', ['ngRoute'])
+angular.module('myApp.precipsDirective', ['ngRoute'])
 
-  .directive( 'quantitativeprecipDirective', [
+  .directive( 'precipsDirective', [
     function () {
       return {
         restrict: 'E',
-        templateUrl: 'shared/quantitativeprecip-directive/quantitativeprecipDirective.html',
+        templateUrl: 'shared/precips-directive/precipsDirective.html',
         scope: {
           data: '<'
         },

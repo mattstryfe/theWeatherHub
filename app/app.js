@@ -11,8 +11,8 @@ angular.module('myApp', [
   'myApp.swf',
   'myApp.projects',
   'myApp.blog',
-  'myApp.probofprecipDirective',
-  'myApp.quantitativeprecipDirective',
+  'myApp.probofprecipgraphDirective',
+  'myApp.precipsDirective',
 
 ])
   .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {

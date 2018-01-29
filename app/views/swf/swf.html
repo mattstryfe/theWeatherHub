@@ -52,16 +52,16 @@
             <h2 ng-class="swf.calcTempColor(data.maxTemperature[0].value)">{{ data.maxTemperature[0].value * 1.8 + 32 | number: 0 }}</h2>
           </div>
 
-          <quantitativeprecip-directive
+          <precips-directive
             data="data">
-          </quantitativeprecip-directive>
+          </precips-directive>
 
         </div>
 
 
-        <probofprecip-directive
+        <probofprecipgraph-directive
           data="data">
-        </probofprecip-directive>
+        </probofprecipgraph-directive>
       </div>
     </div>
   </div>
