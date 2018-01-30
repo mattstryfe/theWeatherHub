@@ -24,6 +24,13 @@ angular.module('myApp.precipsDirective', ['ngRoute'])
             scope.render(scope.data);
           });
 
+         /* TODO:
+          1. Add alerts/ warnings
+          2. Add timestamp from weather time pull
+          3. Add rain, snow, ice indicators
+          4. add
+        */
+
           // calculate snowfall, if there is any
           function calcSnowfallAmount(snowfallAmount) {
             console.log('snowfall amount', snowfallAmount);
